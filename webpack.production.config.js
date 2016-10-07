@@ -60,7 +60,7 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			template: './src/template.html',
-			title: 'Webpack App'
+			title: 'Config Manager UI'
 		}),
 		new webpack.optimize.DedupePlugin()
 	]
