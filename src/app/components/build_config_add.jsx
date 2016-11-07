@@ -42,8 +42,9 @@ class BuildConfigAdd extends React.Component {
 	}
 
 	back = () => {
-		const {router, clearBuildConfigNewAction} = this.props;
+		const {router, clearBuildConfigNewAction, emptyErrorMessagesAction} = this.props;
 		clearBuildConfigNewAction();
+		emptyErrorMessagesAction();
 		router.push('/buildconfigs/home');
 	}
 
