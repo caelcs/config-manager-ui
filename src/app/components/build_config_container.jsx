@@ -27,6 +27,7 @@ class BuildConfigContainer extends Component {
 
 	render() {
 		const {isFetching, buildConfigs} = this.props;
+
 		if (isFetching && !buildConfigs.length) {
 			return <div><div className="page-header">
 				<h1>Build Config List</h1>

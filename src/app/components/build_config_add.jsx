@@ -165,8 +165,8 @@ class BuildConfigAdd extends React.Component {
 										</div>
 									</div>
 									<div>
-										<button className="btn btn-primary" onClick={this.save}> Save</button>
-										<button className="btn btn-primary" onClick={this.back}> Back</button>
+										<button className="btn btn-primary" onClick={this.save}>Save</button>
+										<button className="btn btn-primary" onClick={this.back}>Back</button>
 									</div>
 								</form>
 							</div>

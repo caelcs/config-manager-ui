@@ -28,9 +28,23 @@ const errorList = () => {
 		}
 	};
 
+	const apiErrorMessages = (state = [], action) => {
+		switch (action.type) {
+			case 'API_ERROR':
+				return Object.assign([], state,
+					[action.error]
+				);
+			case 'EMPTY_API_ERRORS':
+				return [];
+			default:
+				return state;
+		}
+	};
+
 	return combineReducers({
 		childErrorMessages,
-		generalErrorMessages
+		generalErrorMessages,
+		apiErrorMessages
 	});
 };
 
@@ -54,3 +68,10 @@ export const getGeneralErrorMsg = (state) => {
 	return generalErrorMsg(state.errors);
 };
 
+const apiErrorMsg = (state) => {
+	return state.apiErrorMessages;
+}
+
+export const getApiErrorMsg = (state) => {
+	return apiErrorMsg(state.errors);
+};

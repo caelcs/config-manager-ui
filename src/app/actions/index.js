@@ -12,6 +12,17 @@ const receiveBuildConfigs = (filter, response) => ({
 	response,
 });
 
+const apiFail = (error) => {
+	let errorDescription = 'Network Connection Failure.';
+	if (error.response) {
+		errorDescription = error.response.status;
+	}
+	return ({
+		type: 'API_ERROR',
+		error: errorDescription
+	})
+};
+
 export const fetchBuildConfigsAction = (filter) => (dispatch, getState) => {
 	if (getIsFetchingBuildConfigs(getState(), filter)) {
 		return Promise.resolve();
@@ -21,21 +32,16 @@ export const fetchBuildConfigsAction = (filter) => (dispatch, getState) => {
 	return axios.get(getState().apiConfig.apiUrl + '/buildconfigs').then(response => {
 		dispatch(receiveBuildConfigs(filter, response.data));
 	}).catch(error => {
-		dispatch(receiveBuildConfigs(filter, []));
+		dispatch(apiFail(error));
 	});
 };
-
-const buildConfigSaveFail = (error) => ({
-	type: 'BUILD_CONFIG_SAVE_FAIL',
-	error,
-});
 
 export const saveBuildConfigAction = (buildConfig, redirectTo) => (dispatch, getState) => {
 	return axios.post(getState().apiConfig.apiUrl + '/buildconfigs', buildConfig)
 		.then(() => {
 			redirectTo();
 		}).catch(error => {
-			dispatch(buildConfigSaveFail(error));
+			dispatch(apiFail(error));
 		});
 };
 
@@ -56,7 +62,7 @@ export const getBuildConfigAction = (env) => (dispatch, getState) => {
 	return axios.get(getState().apiConfig.apiUrl + '/buildconfigs/' + env).then(response => {
 		dispatch(getBuildConfigResponse(env, response.data));
 	}).catch(error => {
-		dispatch(getBuildConfigResponse(env, response.status));
+		dispatch(apiFail(error));
 	});
 };
 
@@ -69,7 +75,7 @@ export const deleteBuildConfigAction = (env) => (dispatch, getState) => {
 	return axios.delete(getState().apiConfig.apiUrl + '/buildconfigs/' + env).then(response => {
 		fetchBuildConfigsAction(env);
 	}).catch(error => {
-		dispatch(deleteBuildConfigResponse(env, response.status));
+		dispatch(apiFail(error));
 	});
 };
 
@@ -105,7 +111,7 @@ const emptyErrorMessage = () => ({
 
 export const emptyErrorMessagesAction = () => (dispatch) => {
 	dispatch(emptyErrorMessage())
-}
+};
 
 
 const setGeneralErrorMessage= (errorMessage) => ({
@@ -123,4 +129,12 @@ const emptyGeneralErrorMessage = () => ({
 
 export const emptyGeneralErrorMessagesAction = () => (dispatch) => {
 	dispatch(emptyGeneralErrorMessage())
-}
+};
+
+const emptyApiErrors = () => ({
+	type: 'EMPTY_API_ERRORS'
+});
+
+export const emptyApiErrorsAction = () => (dispatch) => {
+	dispatch(emptyApiErrors())
+};
