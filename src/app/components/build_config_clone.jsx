@@ -98,7 +98,7 @@ CloneBuildConfig.propTypes = {
 	params: PropTypes.object.isRequired,
 	currentBuildConfig: PropTypes.object.isRequired,
 	env: PropTypes.string.isRequired,
-	router: PropTypes.func.isRequired,
+	router: PropTypes.object.isRequired,
 };
 
 export default CloneBuildConfig = withRouter(connect(mapStateToProps, actions)(CloneBuildConfig));

@@ -106,3 +106,21 @@ const emptyErrorMessage = () => ({
 export const emptyErrorMessagesAction = () => (dispatch) => {
 	dispatch(emptyErrorMessage())
 }
+
+
+const setGeneralErrorMessage= (errorMessage) => ({
+	type: 'GENERAL_ERROR_MESSAGE',
+	errorMessage
+});
+
+export const setGeneralErrorMessageAction = (errorMessage) => (dispatch) => {
+	dispatch(setGeneralErrorMessage(errorMessage));
+};
+
+const emptyGeneralErrorMessage = () => ({
+	type: 'EMPTY_GENERAL_ERROR_MESSAGES'
+});
+
+export const emptyGeneralErrorMessagesAction = () => (dispatch) => {
+	dispatch(emptyGeneralErrorMessage())
+}

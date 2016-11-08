@@ -28,19 +28,15 @@ class BuildConfigItem extends React.Component {
 						<form>
 							<div className="form-group">
 								<legend className="col-sm-10">Username</legend>
-								<input type="text" className="form-control" defaultValue={attributes.sf_username}/>
+								<input type="text" className="form-control" defaultValue={attributes.username}/>
 							</div>
 							<div className="form-group">
 								<legend className="col-sm-10">Password</legend>
-								<input type="text" className="form-control" defaultValue={attributes.sf_password}/>
+								<input type="text" className="form-control" defaultValue={attributes.password}/>
 							</div>
 							<div className="form-group">
 								<legend className="col-sm-10">Token</legend>
-								<input type="text" className="form-control" defaultValue={attributes.sf_token}/>
-							</div>
-							<div className="form-group">
-								<legend className="col-sm-10">Test Level</legend>
-								<input type="text" className="form-control" defaultValue={attributes.sf_testLevel}/>
+								<input type="text" className="form-control" defaultValue={attributes.token}/>
 							</div>
 						</form>
 					</div>
