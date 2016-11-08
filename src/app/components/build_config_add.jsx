@@ -3,13 +3,14 @@ import * as actions from '../actions';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {getBuildConfigNew} from '../reducers/build_config';
-import {getChildErrorMsg} from '../reducers/error_messages';
+import {getChildErrorMsg, getGeneralErrorMsg} from '../reducers/error_messages';
 
 const mapStateToProps = (state) => {
 	console.log(state);
 	return {
 		buildConfigNew: getBuildConfigNew(state),
 		errors: getChildErrorMsg(state),
+		generalErrors: getGeneralErrorMsg(state)
 	};
 };
 
@@ -21,6 +22,13 @@ class BuildConfigAdd extends React.Component {
 	token;
 	attrName;
 	attrValue;
+
+	componentDidMount() {
+		const {emptyGeneralErrorMessagesAction, emptyErrorMessagesAction, clearBuildConfigNewAction} = this.props;
+		emptyGeneralErrorMessagesAction();
+		emptyErrorMessagesAction();
+		clearBuildConfigNewAction();
+	}
 
 	update = () => {
 		const {addAttributeAction, setErrorMessageAction, emptyErrorMessagesAction} = this.props;
@@ -52,9 +60,7 @@ class BuildConfigAdd extends React.Component {
 	}
 
 	back = () => {
-		const {router, clearBuildConfigNewAction, emptyErrorMessagesAction} = this.props;
-		clearBuildConfigNewAction();
-		emptyErrorMessagesAction();
+		const {router} = this.props;
 		router.push('/buildconfigs/home');
 	}
 
@@ -91,8 +97,7 @@ class BuildConfigAdd extends React.Component {
 	}
 
 	render() {
-		const {buildConfigNew} = this.props;
-		const {errors} = this.props;
+		const {buildConfigNew, errors, generalErrors} = this.props;
 		return (
 			<div>
 				<div className="page-header"><h1>Adding new build config</h1></div>
@@ -103,6 +108,14 @@ class BuildConfigAdd extends React.Component {
 								<form className="form-inline">
 									<div className="card">
 										<div className="card-block">
+											{
+												generalErrors.map((value, i) => {
+													return (
+														<div className="alert alert-danger" role="alert" key={i}>
+															<strong>Error: </strong>{value}
+														</div>);
+												})
+											}
 											<div className="form-group">
 												<label htmlFor='build_config_name'>Name</label>
 												<input type="text" ref={node => { this.name = node; }} className="form-control"/>
@@ -167,7 +180,8 @@ class BuildConfigAdd extends React.Component {
 
 BuildConfigAdd.propTypes = {
 	buildConfigNew: PropTypes.object.isRequired,
-	errors: PropTypes.array.isRequired
+	errors: PropTypes.array.isRequired,
+	generalErrors: PropTypes.array.isRequired
 };
 
 BuildConfigAdd = withRouter(connect(mapStateToProps, actions)(BuildConfigAdd));

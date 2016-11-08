@@ -109,7 +109,7 @@ export const emptyErrorMessagesAction = () => (dispatch) => {
 
 
 const setGeneralErrorMessage= (errorMessage) => ({
-	type: 'PARENT_ERROR_MESSAGE',
+	type: 'GENERAL_ERROR_MESSAGE',
 	errorMessage
 });
 

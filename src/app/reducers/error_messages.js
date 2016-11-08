@@ -15,13 +15,13 @@ const errorList = () => {
 		}
 	};
 
-	const parentErrorMessages = (state = [], action) => {
+	const generalErrorMessages = (state = [], action) => {
 		switch (action.type) {
-			case 'PARENT_ERROR_MESSAGE':
+			case 'GENERAL_ERROR_MESSAGE':
 				return Object.assign([], state,
 					[action.errorMessage]
 				);
-			case 'EMPTY_PARENT_ERROR_MESSAGES':
+			case 'EMPTY_GENERAL_ERROR_MESSAGES':
 				return [];
 			default:
 				return state;
@@ -30,7 +30,7 @@ const errorList = () => {
 
 	return combineReducers({
 		childErrorMessages,
-		parentErrorMessages
+		generalErrorMessages
 	});
 };
 
@@ -46,11 +46,11 @@ export const getChildErrorMsg = (state) => {
 	return childErrorMsg(state.errors);
 };
 
-const parentErrorMsg = (state) => {
-	return state.parentErrorMessages;
+const generalErrorMsg = (state) => {
+	return state.generalErrorMessages;
 }
 
-export const getParentErrorMsg = (state) => {
-	return parentErrorMsg(state.errors);
+export const getGeneralErrorMsg = (state) => {
+	return generalErrorMsg(state.errors);
 };
 
