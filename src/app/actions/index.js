@@ -2,12 +2,12 @@ import { getIsFetchingBuildConfigs } from '../reducers/build_config';
 import axios from 'axios';
 
 const requestBuildConfigs = (filter) => ({
-	type: 'REQUEST_BUILD_CONFIGS',
+	type: 'ALL_BUILD_CONFIG_REQUEST',
 	filter,
 });
 
 const receiveBuildConfigs = (filter, response) => ({
-	type: 'RECEIVE_BUILD_CONFIGS',
+	type: 'ALL_BUILD_CONFIG_RESPONSE',
 	filter,
 	response,
 });
@@ -18,7 +18,7 @@ const apiFail = (error) => {
 		errorDescription = error.response.status;
 	}
 	return ({
-		type: 'API_ERROR',
+		type: 'API_ERROR_RESPONSE',
 		error: errorDescription
 	})
 };
@@ -46,12 +46,12 @@ export const saveBuildConfigAction = (buildConfig, redirectTo) => (dispatch, get
 };
 
 const getBuildConfigRequest = (env) => ({
-	type: 'GET_BUILD_CONFIG_REQUEST',
+	type: 'ONE_BUILD_CONFIG_REQUEST',
 	env
 });
 
 const getBuildConfigResponse = (env, response) => ({
-	type: 'GET_BUILD_CONFIG_RESPONSE',
+	type: 'ONE_BUILD_CONFIG_RESPONSE',
 	env,
 	response,
 });
@@ -67,12 +67,13 @@ export const getBuildConfigAction = (env) => (dispatch, getState) => {
 };
 
 const deleteBuildConfigResponse = (status) => ({
-	type: 'DELETE_BUILD_CONFIG',
+	type: 'DELETE_BUILD_CONFIG_RESPONSE',
 	status
 });
 
 export const deleteBuildConfigAction = (env) => (dispatch, getState) => {
 	return axios.delete(getState().apiConfig.apiUrl + '/buildconfigs/' + env).then(response => {
+		dispatch(deleteBuildConfigResponse);
 		fetchBuildConfigsAction(env);
 	}).catch(error => {
 		dispatch(apiFail(error));
@@ -80,7 +81,7 @@ export const deleteBuildConfigAction = (env) => (dispatch, getState) => {
 };
 
 const attributeAdded = (result) => ({
-	type: 'BUILD_CONFIG_NEW',
+	type: 'NEW_BUILD_CONFIG_RESPONSE',
 	attributes: result
 });
 
@@ -89,7 +90,7 @@ export const addAttributeAction = (name, value) => (dispatch) => {
 };
 
 const attributeEmpty = () => ({
-	type: 'BUILD_CONFIG_EMPTY'
+	type: 'EMPTY_BUILD_CONFIG_RESPONSE'
 });
 
 export const clearBuildConfigNewAction = () => (dispatch) => {
@@ -97,7 +98,7 @@ export const clearBuildConfigNewAction = () => (dispatch) => {
 };
 
 const setErrorMessage= (errorMessage) => ({
-	type: 'NEW_VALIDATION_ERROR',
+	type: 'NEW_VALIDATION_ERROR_RESPONSE',
 	errorMessage
 });
 
@@ -106,7 +107,7 @@ export const setErrorMessageAction = (errorMessage) => (dispatch) => {
 };
 
 const emptyErrorMessage = () => ({
-	type: 'EMPTY_ERROR_MESSAGES'
+	type: 'EMPTY_ERROR_MESSAGES_RESPONSE'
 });
 
 export const emptyErrorMessagesAction = () => (dispatch) => {
@@ -115,7 +116,7 @@ export const emptyErrorMessagesAction = () => (dispatch) => {
 
 
 const setGeneralErrorMessage= (errorMessage) => ({
-	type: 'GENERAL_ERROR_MESSAGE',
+	type: 'GENERAL_ERROR_MESSAGE_RESPONSE',
 	errorMessage
 });
 
@@ -124,7 +125,7 @@ export const setGeneralErrorMessageAction = (errorMessage) => (dispatch) => {
 };
 
 const emptyGeneralErrorMessage = () => ({
-	type: 'EMPTY_GENERAL_ERROR_MESSAGES'
+	type: 'EMPTY_GENERAL_ERROR_MESSAGES_RESPONSE'
 });
 
 export const emptyGeneralErrorMessagesAction = () => (dispatch) => {
@@ -132,7 +133,7 @@ export const emptyGeneralErrorMessagesAction = () => (dispatch) => {
 };
 
 const emptyApiErrors = () => ({
-	type: 'EMPTY_API_ERRORS'
+	type: 'EMPTY_API_ERRORS_RESPONSE'
 });
 
 export const emptyApiErrorsAction = () => (dispatch) => {

@@ -7,9 +7,9 @@ const createBuildConfigList = (filter) => {
 			return state;
 		}
 		switch (action.type) {
-			case 'REQUEST_BUILD_CONFIGS':
+			case 'ALL_BUILD_CONFIG_REQUEST':
 				return true;
-			case 'RECEIVE_BUILD_CONFIGS':
+			case 'ALL_BUILD_CONFIG_RESPONSE':
 				return false;
 			default:
 				return state;
@@ -22,7 +22,7 @@ const createBuildConfigList = (filter) => {
 		}
 
 		switch (action.type) {
-			case 'RECEIVE_BUILD_CONFIGS':
+			case 'ALL_BUILD_CONFIG_RESPONSE':
 				return action.response;
 			default:
 				return state;
