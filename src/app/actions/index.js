@@ -18,7 +18,7 @@ const apiFail = (error) => {
 		errorDescription = error.response.status;
 	}
 	return ({
-		type: 'API_ERROR_RESPONSE',
+		type: 'API_ERROR',
 		error: errorDescription
 	})
 };
@@ -90,7 +90,7 @@ export const addAttributeAction = (name, value) => (dispatch) => {
 };
 
 const attributeEmpty = () => ({
-	type: 'EMPTY_BUILD_CONFIG_RESPONSE'
+	type: 'EMPTY_BUILD_CONFIG'
 });
 
 export const clearBuildConfigNewAction = () => (dispatch) => {
@@ -98,7 +98,7 @@ export const clearBuildConfigNewAction = () => (dispatch) => {
 };
 
 const setErrorMessage= (errorMessage) => ({
-	type: 'NEW_VALIDATION_ERROR_RESPONSE',
+	type: 'NEW_VALIDATION_ERROR',
 	errorMessage
 });
 
@@ -107,7 +107,7 @@ export const setErrorMessageAction = (errorMessage) => (dispatch) => {
 };
 
 const emptyErrorMessage = () => ({
-	type: 'EMPTY_ERROR_MESSAGES_RESPONSE'
+	type: 'EMPTY_ERROR_MESSAGES'
 });
 
 export const emptyErrorMessagesAction = () => (dispatch) => {
@@ -116,7 +116,7 @@ export const emptyErrorMessagesAction = () => (dispatch) => {
 
 
 const setGeneralErrorMessage= (errorMessage) => ({
-	type: 'GENERAL_ERROR_MESSAGE_RESPONSE',
+	type: 'GENERAL_ERROR_MESSAGE',
 	errorMessage
 });
 
@@ -125,7 +125,7 @@ export const setGeneralErrorMessageAction = (errorMessage) => (dispatch) => {
 };
 
 const emptyGeneralErrorMessage = () => ({
-	type: 'EMPTY_GENERAL_ERROR_MESSAGES_RESPONSE'
+	type: 'EMPTY_GENERAL_ERROR_MESSAGES'
 });
 
 export const emptyGeneralErrorMessagesAction = () => (dispatch) => {
@@ -133,7 +133,7 @@ export const emptyGeneralErrorMessagesAction = () => (dispatch) => {
 };
 
 const emptyApiErrors = () => ({
-	type: 'EMPTY_API_ERRORS_RESPONSE'
+	type: 'EMPTY_API_ERRORS'
 });
 
 export const emptyApiErrorsAction = () => (dispatch) => {

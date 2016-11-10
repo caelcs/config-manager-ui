@@ -26,7 +26,7 @@ const oneBuildConfig = () => {
 				return Object.assign({}, state,
 					action.attributes
 				);
-			case 'EMPTY_BUILD_CONFIG_RESPONSE':
+			case 'EMPTY_BUILD_CONFIG':
 				return {};
 			default:
 				return state;

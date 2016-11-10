@@ -4,11 +4,11 @@ const errorList = () => {
 
 	const childErrorMessages = (state = [], action) => {
 		switch (action.type) {
-			case 'NEW_VALIDATION_ERROR_RESPONSE':
+			case 'NEW_VALIDATION_ERROR':
 				return Object.assign([], state,
 					[action.errorMessage]
 				);
-			case 'EMPTY_ERROR_MESSAGES_RESPONSE':
+			case 'EMPTY_ERROR_MESSAGES':
 				return [];
 			default:
 				return state;
@@ -17,11 +17,11 @@ const errorList = () => {
 
 	const generalErrorMessages = (state = [], action) => {
 		switch (action.type) {
-			case 'GENERAL_ERROR_MESSAGE_RESPONSE':
+			case 'GENERAL_ERROR_MESSAGE':
 				return Object.assign([], state,
 					[action.errorMessage]
 				);
-			case 'EMPTY_GENERAL_ERROR_MESSAGES_RESPONSE':
+			case 'EMPTY_GENERAL_ERROR_MESSAGES':
 				return [];
 			default:
 				return state;
@@ -30,11 +30,11 @@ const errorList = () => {
 
 	const apiErrorMessages = (state = [], action) => {
 		switch (action.type) {
-			case 'API_ERROR_RESPONSE':
+			case 'API_ERROR':
 				return Object.assign([], state,
 					[action.error]
 				);
-			case 'EMPTY_API_ERRORS_RESPONSE':
+			case 'EMPTY_API_ERRORS':
 				return [];
 			default:
 				return state;
