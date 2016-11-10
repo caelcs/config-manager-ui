@@ -10,6 +10,7 @@ import configureStore from './app/reducers/index';
 let configManagerStore = configureStore();
 
 console.log(configManagerStore.getState());
+
 render(
 	<Provider store={configManagerStore}>
 		<App />

@@ -132,7 +132,7 @@ export const emptyGeneralErrorMessagesAction = () => (dispatch) => {
 	dispatch(emptyGeneralErrorMessage())
 };
 
-const emptyApiErrors = () => ({
+export const emptyApiErrors = () => ({
 	type: 'EMPTY_API_ERRORS'
 });
 
