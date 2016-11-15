@@ -29,6 +29,10 @@ const errorList = () => {
 	};
 
 	const apiErrorMessages = (state = [], action) => {
+		if (action.type.search("_RESPONSE") != -1 ) {
+			return [];
+		}
+
 		switch (action.type) {
 			case 'API_ERROR':
 				return Object.assign([], state,
