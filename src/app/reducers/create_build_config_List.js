@@ -6,10 +6,14 @@ const createBuildConfigList = (filter) => {
 		if (filter !== action.filter) {
 			return state;
 		}
+
+		console.log(action.type);
 		switch (action.type) {
 			case 'ALL_BUILD_CONFIG_REQUEST':
 				return true;
 			case 'ALL_BUILD_CONFIG_RESPONSE':
+				return false;
+			case 'API_ERROR':
 				return false;
 			default:
 				return state;

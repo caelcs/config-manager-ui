@@ -60,11 +60,14 @@ class BuildConfigAdd extends React.Component {
 	}
 
 	back = () => {
+		console.log('back function');
 		const {router} = this.props;
+		console.log(router);
 		router.push('/buildconfigs/home');
 	}
 
 	save = () => {
+		console.log('starting validation');
 		const {setGeneralErrorMessageAction, buildConfigNew, saveBuildConfigAction} = this.props;
 		if (this.name.value === undefined || this.name.value === '') {
 			setGeneralErrorMessageAction('Name can not be null or empty.');
@@ -85,13 +88,13 @@ class BuildConfigAdd extends React.Component {
 			setGeneralErrorMessageAction('Password can not be null or empty.');
 			return;
 		}
-
+		console.log('building new object');
 		const buildconfig = ({
 			environment: this.name.value,
 			attributes: Object.assign({}, buildConfigNew, {username: this.username.value, password: this.password.value, token:this.token.value})
 		})
 
-		console.log(buildconfig)
+		console.log(buildconfig);
 
 		saveBuildConfigAction(buildconfig, this.back);
 	}

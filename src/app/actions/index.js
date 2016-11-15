@@ -17,6 +17,7 @@ const apiFail = (error) => {
 	if (error.response) {
 		errorDescription = error.response.status;
 	}
+	console.log('API ERROR OCCURS');
 	return ({
 		type: 'API_ERROR',
 		error: errorDescription
@@ -37,10 +38,13 @@ export const fetchBuildConfigsAction = (filter) => (dispatch, getState) => {
 };
 
 export const saveBuildConfigAction = (buildConfig, redirectTo) => (dispatch, getState) => {
+	console.log('executing save action');
 	return axios.post(getState().apiConfig.apiUrl + '/buildconfigs', buildConfig)
 		.then(() => {
+			console.log('redirecting back');
 			redirectTo();
-		}).catch(error => {
+		}).catch((error) => {
+			console.log('error');
 			dispatch(apiFail(error));
 		});
 };
