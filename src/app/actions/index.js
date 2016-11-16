@@ -70,15 +70,15 @@ export const getBuildConfigAction = (env) => (dispatch, getState) => {
 	});
 };
 
-const deleteBuildConfigResponse = (status) => ({
+const deleteBuildConfigResponse = (env) => ({
 	type: 'DELETE_BUILD_CONFIG_RESPONSE',
-	status
+	env
 });
 
-export const deleteBuildConfigAction = (env) => (dispatch, getState) => {
+export const deleteBuildConfigAction = (env, postAction) => (dispatch, getState) => {
 	return axios.delete(getState().apiConfig.apiUrl + '/buildconfigs/' + env).then(response => {
-		dispatch(deleteBuildConfigResponse);
-		fetchBuildConfigsAction(env);
+		dispatch(deleteBuildConfigResponse(env));
+		postAction('all');
 	}).catch(error => {
 		dispatch(apiFail(error));
 	});

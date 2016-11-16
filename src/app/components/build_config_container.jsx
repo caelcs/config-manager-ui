@@ -22,7 +22,9 @@ class BuildConfigContainer extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		this.fetchData();
+		if (this.props.filter !== prevProps.filter) {
+			this.fetchData();
+		}
 	}
 
 	render() {
