@@ -6,7 +6,6 @@ import {getBuildConfigNew} from '../reducers/build_config';
 import {getChildErrorMsg, getGeneralErrorMsg} from '../reducers/error_messages';
 
 const mapStateToProps = (state) => {
-	console.log(state);
 	return {
 		buildConfigNew: getBuildConfigNew(state),
 		errors: getChildErrorMsg(state),
@@ -24,6 +23,7 @@ class BuildConfigAdd extends React.Component {
 	attrValue;
 
 	componentDidMount() {
+		console.log('component did mount');
 		const {emptyGeneralErrorMessagesAction, emptyErrorMessagesAction, clearBuildConfigNewAction} = this.props;
 		emptyGeneralErrorMessagesAction();
 		emptyErrorMessagesAction();
@@ -32,8 +32,6 @@ class BuildConfigAdd extends React.Component {
 
 	update = () => {
 		const {addAttributeAction, setErrorMessageAction, emptyErrorMessagesAction} = this.props;
-		console.log(this.attrName.value);
-		console.log(this.attrValue.value);
 		if (this.attrName.value === undefined || this.attrName.value === '') {
 			this.attrName.value = '';
 			setErrorMessageAction('Name can not be null or empty.');
@@ -62,7 +60,6 @@ class BuildConfigAdd extends React.Component {
 	back = () => {
 		console.log('back function');
 		const {router} = this.props;
-		console.log(router);
 		router.push('/buildconfigs/home');
 	}
 

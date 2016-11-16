@@ -51,9 +51,6 @@ class CloneBuildConfig extends React.Component {
 
 	render(){
 		const {env, currentBuildConfig} = this.props;
-		if (currentBuildConfig.attributes === undefined) {
-			return <p>Loading...</p>;
-		}
 		return (
 			<div>
 				<div className="page-header">

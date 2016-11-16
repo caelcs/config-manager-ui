@@ -18,10 +18,13 @@ const mapStateToProps = (state) => {
 class BuildConfigContainer extends Component {
 
 	componentDidMount() {
+		console.log('list of Builds Did Mount');
 		this.fetchData();
 	}
 
 	componentDidUpdate(prevProps) {
+		console.log('list of Builds Did update');
+		console.log('')
 		if (this.props.filter !== prevProps.filter) {
 			this.fetchData();
 		}

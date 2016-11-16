@@ -12,14 +12,15 @@ const receiveBuildConfigs = (filter, response) => ({
 	response,
 });
 
-const apiFail = (error) => {
+const apiFail = (type, error) => {
 	let errorDescription = 'Network Connection Failure.';
 	if (error.response) {
 		errorDescription = error.response.status;
 	}
-	console.log('API ERROR OCCURS');
+	console.log('API ERROR OCCURS: ' + type);
+	console.log(errorDescription);
 	return ({
-		type: 'API_ERROR',
+		type: type,
 		error: errorDescription
 	})
 };
@@ -33,7 +34,7 @@ export const fetchBuildConfigsAction = (filter) => (dispatch, getState) => {
 	return axios.get(getState().apiConfig.apiUrl + '/buildconfigs').then(response => {
 		dispatch(receiveBuildConfigs(filter, response.data));
 	}).catch(error => {
-		dispatch(apiFail(error));
+		dispatch(apiFail('ALL_BUILD_CONFIG_FAILURE', error));
 	});
 };
 
@@ -45,7 +46,7 @@ export const saveBuildConfigAction = (buildConfig, redirectTo) => (dispatch, get
 			redirectTo();
 		}).catch((error) => {
 			console.log('error');
-			dispatch(apiFail(error));
+			dispatch(apiFail('NEW_BUILD_CONFIG_FAILURE', error));
 		});
 };
 
@@ -66,7 +67,7 @@ export const getBuildConfigAction = (env) => (dispatch, getState) => {
 	return axios.get(getState().apiConfig.apiUrl + '/buildconfigs/' + env).then(response => {
 		dispatch(getBuildConfigResponse(env, response.data));
 	}).catch(error => {
-		dispatch(apiFail(error));
+		dispatch(apiFail('ONE_BUILD_CONFIG_FAILURE', error));
 	});
 };
 
@@ -80,7 +81,7 @@ export const deleteBuildConfigAction = (env, postAction) => (dispatch, getState)
 		dispatch(deleteBuildConfigResponse(env));
 		postAction('all');
 	}).catch(error => {
-		dispatch(apiFail(error));
+		dispatch(apiFail('DELETE_BUILD_CONFIG_FAILURE', error));
 	});
 };
 

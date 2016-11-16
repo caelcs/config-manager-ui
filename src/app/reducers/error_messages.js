@@ -30,14 +30,20 @@ const errorList = () => {
 
 	const apiErrorMessages = (state = [], action) => {
 		if (action.type.search("_RESPONSE") != -1 ) {
+			console.log('_RESPONSE');
 			return [];
 		}
 
+		if (action.type.search("_FAILURE") != -1 ) {
+			console.log('_FAILURE');
+			console.log(state);
+			console.log(action.error);
+			return Object.assign([], state,
+				[action.error]
+			);
+		}
+
 		switch (action.type) {
-			case 'API_ERROR':
-				return Object.assign([], state,
-					[action.error]
-				);
 			case 'EMPTY_API_ERRORS':
 				return [];
 			default:

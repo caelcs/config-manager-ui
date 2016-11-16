@@ -13,7 +13,7 @@ const createBuildConfigList = (filter) => {
 				return true;
 			case 'ALL_BUILD_CONFIG_RESPONSE':
 				return false;
-			case 'API_ERROR':
+			case 'ALL_BUILD_CONFIG_FAILURE':
 				return false;
 			default:
 				return state;
@@ -28,6 +28,14 @@ const createBuildConfigList = (filter) => {
 		switch (action.type) {
 			case 'ALL_BUILD_CONFIG_RESPONSE':
 				return action.response;
+			case 'ALL_BUILD_CONFIG_FAILURE':
+				return [];
+			case 'DELETE_BUILD_CONFIG_FAILURE':
+				return [];
+			case 'NEW_BUILD_CONFIG_FAILURE':
+				return [];
+			case 'ONE_BUILD_CONFIG_FAILURE':
+				return [];
 			default:
 				return state;
 		}

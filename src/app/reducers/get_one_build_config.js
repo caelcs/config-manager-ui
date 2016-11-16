@@ -6,6 +6,8 @@ const oneBuildConfig = () => {
 		switch (action.type) {
 			case 'ONE_BUILD_CONFIG_RESPONSE':
 				return action.response;
+			case 'ONE_BUILD_CONFIG_FAILURE':
+				return {};
 			default:
 				return state;
 		}
@@ -26,6 +28,8 @@ const oneBuildConfig = () => {
 				return Object.assign({}, state,
 					action.attributes
 				);
+			case 'NEW_BUILD_CONFIG_FAILURE':
+				return {};
 			case 'EMPTY_BUILD_CONFIG':
 				return {};
 			default:
