@@ -28,9 +28,33 @@ const errorList = () => {
 		}
 	};
 
+	const apiErrorMessages = (state = [], action) => {
+		if (action.type.search("_RESPONSE") != -1 ) {
+			console.log('_RESPONSE');
+			return [];
+		}
+
+		if (action.type.search("_FAILURE") != -1 ) {
+			console.log('_FAILURE');
+			console.log(state);
+			console.log(action.error);
+			return Object.assign([], state,
+				[action.error]
+			);
+		}
+
+		switch (action.type) {
+			case 'EMPTY_API_ERRORS':
+				return [];
+			default:
+				return state;
+		}
+	};
+
 	return combineReducers({
 		childErrorMessages,
-		generalErrorMessages
+		generalErrorMessages,
+		apiErrorMessages
 	});
 };
 
@@ -54,3 +78,10 @@ export const getGeneralErrorMsg = (state) => {
 	return generalErrorMsg(state.errors);
 };
 
+const apiErrorMsg = (state) => {
+	return state.apiErrorMessages;
+}
+
+export const getApiErrorMsg = (state) => {
+	return apiErrorMsg(state.errors);
+};

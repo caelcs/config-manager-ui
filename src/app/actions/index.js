@@ -2,15 +2,28 @@ import { getIsFetchingBuildConfigs } from '../reducers/build_config';
 import axios from 'axios';
 
 const requestBuildConfigs = (filter) => ({
-	type: 'REQUEST_BUILD_CONFIGS',
+	type: 'ALL_BUILD_CONFIG_REQUEST',
 	filter,
 });
 
 const receiveBuildConfigs = (filter, response) => ({
-	type: 'RECEIVE_BUILD_CONFIGS',
+	type: 'ALL_BUILD_CONFIG_RESPONSE',
 	filter,
 	response,
 });
+
+const apiFail = (type, error) => {
+	let errorDescription = 'Network Connection Failure.';
+	if (error.response) {
+		errorDescription = error.response.status;
+	}
+	console.log('API ERROR OCCURS: ' + type);
+	console.log(errorDescription);
+	return ({
+		type: type,
+		error: errorDescription
+	})
+};
 
 export const fetchBuildConfigsAction = (filter) => (dispatch, getState) => {
 	if (getIsFetchingBuildConfigs(getState(), filter)) {
@@ -21,31 +34,29 @@ export const fetchBuildConfigsAction = (filter) => (dispatch, getState) => {
 	return axios.get(getState().apiConfig.apiUrl + '/buildconfigs').then(response => {
 		dispatch(receiveBuildConfigs(filter, response.data));
 	}).catch(error => {
-		dispatch(receiveBuildConfigs(filter, []));
+		dispatch(apiFail('ALL_BUILD_CONFIG_FAILURE', error));
 	});
 };
 
-const buildConfigSaveFail = (error) => ({
-	type: 'BUILD_CONFIG_SAVE_FAIL',
-	error,
-});
-
 export const saveBuildConfigAction = (buildConfig, redirectTo) => (dispatch, getState) => {
+	console.log('executing save action');
 	return axios.post(getState().apiConfig.apiUrl + '/buildconfigs', buildConfig)
 		.then(() => {
+			console.log('redirecting back');
 			redirectTo();
-		}).catch(error => {
-			dispatch(buildConfigSaveFail(error));
+		}).catch((error) => {
+			console.log('error');
+			dispatch(apiFail('NEW_BUILD_CONFIG_FAILURE', error));
 		});
 };
 
 const getBuildConfigRequest = (env) => ({
-	type: 'GET_BUILD_CONFIG_REQUEST',
+	type: 'ONE_BUILD_CONFIG_REQUEST',
 	env
 });
 
 const getBuildConfigResponse = (env, response) => ({
-	type: 'GET_BUILD_CONFIG_RESPONSE',
+	type: 'ONE_BUILD_CONFIG_RESPONSE',
 	env,
 	response,
 });
@@ -56,25 +67,26 @@ export const getBuildConfigAction = (env) => (dispatch, getState) => {
 	return axios.get(getState().apiConfig.apiUrl + '/buildconfigs/' + env).then(response => {
 		dispatch(getBuildConfigResponse(env, response.data));
 	}).catch(error => {
-		dispatch(getBuildConfigResponse(env, response.status));
+		dispatch(apiFail('ONE_BUILD_CONFIG_FAILURE', error));
 	});
 };
 
-const deleteBuildConfigResponse = (status) => ({
-	type: 'DELETE_BUILD_CONFIG',
-	status
+const deleteBuildConfigResponse = (env) => ({
+	type: 'DELETE_BUILD_CONFIG_RESPONSE',
+	env
 });
 
-export const deleteBuildConfigAction = (env) => (dispatch, getState) => {
+export const deleteBuildConfigAction = (env, postAction) => (dispatch, getState) => {
 	return axios.delete(getState().apiConfig.apiUrl + '/buildconfigs/' + env).then(response => {
-		fetchBuildConfigsAction(env);
+		dispatch(deleteBuildConfigResponse(env));
+		postAction('all');
 	}).catch(error => {
-		dispatch(deleteBuildConfigResponse(env, response.status));
+		dispatch(apiFail('DELETE_BUILD_CONFIG_FAILURE', error));
 	});
 };
 
 const attributeAdded = (result) => ({
-	type: 'BUILD_CONFIG_NEW',
+	type: 'NEW_BUILD_CONFIG_RESPONSE',
 	attributes: result
 });
 
@@ -83,7 +95,7 @@ export const addAttributeAction = (name, value) => (dispatch) => {
 };
 
 const attributeEmpty = () => ({
-	type: 'BUILD_CONFIG_EMPTY'
+	type: 'EMPTY_BUILD_CONFIG'
 });
 
 export const clearBuildConfigNewAction = () => (dispatch) => {
@@ -105,7 +117,7 @@ const emptyErrorMessage = () => ({
 
 export const emptyErrorMessagesAction = () => (dispatch) => {
 	dispatch(emptyErrorMessage())
-}
+};
 
 
 const setGeneralErrorMessage= (errorMessage) => ({
@@ -123,4 +135,12 @@ const emptyGeneralErrorMessage = () => ({
 
 export const emptyGeneralErrorMessagesAction = () => (dispatch) => {
 	dispatch(emptyGeneralErrorMessage())
-}
+};
+
+export const emptyApiErrors = () => ({
+	type: 'EMPTY_API_ERRORS'
+});
+
+export const emptyApiErrorsAction = () => (dispatch) => {
+	dispatch(emptyApiErrors())
+};

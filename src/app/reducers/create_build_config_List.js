@@ -6,10 +6,14 @@ const createBuildConfigList = (filter) => {
 		if (filter !== action.filter) {
 			return state;
 		}
+
+		console.log(action.type);
 		switch (action.type) {
-			case 'REQUEST_BUILD_CONFIGS':
+			case 'ALL_BUILD_CONFIG_REQUEST':
 				return true;
-			case 'RECEIVE_BUILD_CONFIGS':
+			case 'ALL_BUILD_CONFIG_RESPONSE':
+				return false;
+			case 'ALL_BUILD_CONFIG_FAILURE':
 				return false;
 			default:
 				return state;
@@ -22,8 +26,16 @@ const createBuildConfigList = (filter) => {
 		}
 
 		switch (action.type) {
-			case 'RECEIVE_BUILD_CONFIGS':
+			case 'ALL_BUILD_CONFIG_RESPONSE':
 				return action.response;
+			case 'ALL_BUILD_CONFIG_FAILURE':
+				return [];
+			case 'DELETE_BUILD_CONFIG_FAILURE':
+				return [];
+			case 'NEW_BUILD_CONFIG_FAILURE':
+				return [];
+			case 'ONE_BUILD_CONFIG_FAILURE':
+				return [];
 			default:
 				return state;
 		}

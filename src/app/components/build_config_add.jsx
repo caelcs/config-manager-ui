@@ -6,7 +6,6 @@ import {getBuildConfigNew} from '../reducers/build_config';
 import {getChildErrorMsg, getGeneralErrorMsg} from '../reducers/error_messages';
 
 const mapStateToProps = (state) => {
-	console.log(state);
 	return {
 		buildConfigNew: getBuildConfigNew(state),
 		errors: getChildErrorMsg(state),
@@ -24,6 +23,7 @@ class BuildConfigAdd extends React.Component {
 	attrValue;
 
 	componentDidMount() {
+		console.log('component did mount');
 		const {emptyGeneralErrorMessagesAction, emptyErrorMessagesAction, clearBuildConfigNewAction} = this.props;
 		emptyGeneralErrorMessagesAction();
 		emptyErrorMessagesAction();
@@ -32,8 +32,6 @@ class BuildConfigAdd extends React.Component {
 
 	update = () => {
 		const {addAttributeAction, setErrorMessageAction, emptyErrorMessagesAction} = this.props;
-		console.log(this.attrName.value);
-		console.log(this.attrValue.value);
 		if (this.attrName.value === undefined || this.attrName.value === '') {
 			this.attrName.value = '';
 			setErrorMessageAction('Name can not be null or empty.');
@@ -60,11 +58,15 @@ class BuildConfigAdd extends React.Component {
 	}
 
 	back = () => {
+		console.log('back function');
+		const {fetchBuildConfigsAction} = this.props;
 		const {router} = this.props;
+		fetchBuildConfigsAction('all');
 		router.push('/buildconfigs/home');
 	}
 
 	save = () => {
+		console.log('starting validation');
 		const {setGeneralErrorMessageAction, buildConfigNew, saveBuildConfigAction} = this.props;
 		if (this.name.value === undefined || this.name.value === '') {
 			setGeneralErrorMessageAction('Name can not be null or empty.');
@@ -85,13 +87,13 @@ class BuildConfigAdd extends React.Component {
 			setGeneralErrorMessageAction('Password can not be null or empty.');
 			return;
 		}
-
+		console.log('building new object');
 		const buildconfig = ({
 			environment: this.name.value,
 			attributes: Object.assign({}, buildConfigNew, {username: this.username.value, password: this.password.value, token:this.token.value})
 		})
 
-		console.log(buildconfig)
+		console.log(buildconfig);
 
 		saveBuildConfigAction(buildconfig, this.back);
 	}
@@ -165,8 +167,8 @@ class BuildConfigAdd extends React.Component {
 										</div>
 									</div>
 									<div>
-										<button className="btn btn-primary" onClick={this.save}> Save</button>
-										<button className="btn btn-primary" onClick={this.back}> Back</button>
+										<button className="btn btn-primary" onClick={this.save}>Save</button>
+										<button className="btn btn-primary" onClick={this.back}>Back</button>
 									</div>
 								</form>
 							</div>

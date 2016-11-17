@@ -9,6 +9,9 @@ import {mapObject} from '../utils'
 
 const mapStateToProps = (state, params) => {
 	const env = params.location.query.environment;
+	console.log(env);
+	console.log(getOneBuildConfig(state, env));
+	console.log(state);
 	return {
 		currentBuildConfig: getOneBuildConfig(state, env),
 		env,
@@ -63,7 +66,7 @@ class CloneBuildConfig extends React.Component {
 					<div className="row">
 						<div className="bd-example">
 							<div id="cloneBuildConfigform">
-								<form className="form" onSubmit={this.submit}>
+								<form className="form">
 									<div className="card">
 										<div className="card-block">
 										{
@@ -80,7 +83,7 @@ class CloneBuildConfig extends React.Component {
 										</div>
 									</div>
 									</div>
-									<button className="btn btn-primary" type="submit">
+									<button className="btn btn-primary" onClick={this.submit}>
 										Save
 									</button>
 									<Link to='/buildconfigs/home' className='btn btn-primary' role='button'>Back</Link>

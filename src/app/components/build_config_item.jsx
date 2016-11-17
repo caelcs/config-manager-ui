@@ -6,8 +6,8 @@ import {connect} from 'react-redux';
 class BuildConfigItem extends React.Component {
 
 	deleteBuildConfig = () => {
-		const {environment, deleteBuildConfigAction} = this.props;
-		deleteBuildConfigAction(environment);
+		const {environment, deleteBuildConfigAction, fetchBuildConfigsAction} = this.props;
+		deleteBuildConfigAction(environment, fetchBuildConfigsAction);
 	};
 
 	render() {

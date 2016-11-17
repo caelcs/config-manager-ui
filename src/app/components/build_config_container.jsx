@@ -18,15 +18,21 @@ const mapStateToProps = (state) => {
 class BuildConfigContainer extends Component {
 
 	componentDidMount() {
+		console.log('list of Builds Did Mount');
 		this.fetchData();
 	}
 
 	componentDidUpdate(prevProps) {
-		this.fetchData();
+		console.log('list of Builds Did update');
+		console.log('')
+		if (this.props.filter !== prevProps.filter) {
+			this.fetchData();
+		}
 	}
 
 	render() {
 		const {isFetching, buildConfigs} = this.props;
+
 		if (isFetching && !buildConfigs.length) {
 			return <div><div className="page-header">
 				<h1>Build Config List</h1>

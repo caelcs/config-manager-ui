@@ -4,8 +4,10 @@ const oneBuildConfig = () => {
 
 	const one = (state = {}, action) => {
 		switch (action.type) {
-			case 'GET_BUILD_CONFIG_RESPONSE':
+			case 'ONE_BUILD_CONFIG_RESPONSE':
 				return action.response;
+			case 'ONE_BUILD_CONFIG_FAILURE':
+				return {};
 			default:
 				return state;
 		}
@@ -13,7 +15,7 @@ const oneBuildConfig = () => {
 
 	const isSaved = (state = {}, action) => {
 		switch (action.type) {
-			case 'BUILD_CONFIG_SAVED':
+			case 'SAVE_BUILD_CONFIG_RESPONSE':
 				return true;
 			default:
 				return false;
@@ -22,11 +24,13 @@ const oneBuildConfig = () => {
 
 	const buildConfigNew = (state = {}, action) => {
 		switch (action.type) {
-			case 'BUILD_CONFIG_NEW':
+			case 'NEW_BUILD_CONFIG_RESPONSE':
 				return Object.assign({}, state,
 					action.attributes
 				);
-			case 'BUILD_CONFIG_EMPTY':
+			case 'NEW_BUILD_CONFIG_FAILURE':
+				return {};
+			case 'EMPTY_BUILD_CONFIG':
 				return {};
 			default:
 				return state;
