@@ -20,7 +20,7 @@ class BuildConfigForm extends React.Component {
 
 BuildConfigForm.propTypes = {
 	attributes: PropTypes.object.isRequired,
-	name: PropTypes.string.isRequired
+	name: PropTypes.string
 };
 
 export default BuildConfigForm;
