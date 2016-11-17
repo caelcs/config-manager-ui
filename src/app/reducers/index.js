@@ -3,6 +3,7 @@ import buildConfigs from './build_config';
 import errors from './error_messages';
 import apiConfig from './api_config';
 import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
 
 const configStoreData = combineReducers({
 	buildConfigs,
@@ -11,7 +12,8 @@ const configStoreData = combineReducers({
 });
 
 const configureStore = () => {
-	const middlewares = [thunk];
+	const logger = createLogger();
+	const middlewares = [thunk, logger];
 	return createStore(
 		configStoreData,
 		applyMiddleware(...middlewares)
