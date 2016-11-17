@@ -5,13 +5,11 @@ import {getOneBuildConfig} from '../reducers/build_config';
 import * as actions from '../actions';
 import {withRouter} from 'react-router';
 import ReactDOM from 'react-dom';
-import {mapObject} from '../utils'
+import BuildConfigForm from './build_config_form';
+import LoadingData from './loading_data';
 
 const mapStateToProps = (state, params) => {
 	const env = params.location.query.environment;
-	console.log(env);
-	console.log(getOneBuildConfig(state, env));
-	console.log(state);
 	return {
 		currentBuildConfig: getOneBuildConfig(state, env),
 		env,
@@ -27,18 +25,18 @@ class CloneBuildConfig extends React.Component {
 	fetchBuildConfig = () => {
 		const {env, getBuildConfigAction} = this.props;
 		getBuildConfigAction(env);
-	}
+	};
 
 	submit = () => {
 		const {saveBuildConfigAction} = this.props;
 		const body = this.buildRequestBody();
 		saveBuildConfigAction(body, this.redirectToHome);
-	}
+	};
 
 	redirectToHome = () => {
 		const {router} = this.props;
 		router.push('/buildconfigs/home');
-	}
+	};
 
 	buildRequestBody = () => {
 		const {currentBuildConfig} = this.props;
@@ -50,12 +48,14 @@ class CloneBuildConfig extends React.Component {
 			environment: ReactDOM.findDOMNode(this.refs.build_config_name).value,
 			attributes: attributes
 		}
-	}
+	};
 
 	render(){
 		const {env, currentBuildConfig} = this.props;
 		if (currentBuildConfig.attributes === undefined) {
-			return <p>Loading...</p>;
+			return (<div id="cloneBuildConfigContainer" className="container-fluid">
+				<LoadingData />
+			</div>);
 		}
 		return (
 			<div>
@@ -66,28 +66,11 @@ class CloneBuildConfig extends React.Component {
 					<div className="row">
 						<div className="bd-example">
 							<div id="cloneBuildConfigform">
-								<form className="form">
-									<div className="card">
-										<div className="card-block">
-										{
-											mapObject(currentBuildConfig.attributes, (key, value) => {
-												return <div className="form-group" key={key}>
-													<label htmlFor={key}>{key}</label>
-													<input type="text" ref={key} className="form-control" defaultValue={value}/>
-												</div>
-											})
-										}
-										<div className="form-group">
-											<label htmlFor='build_config_name'>Name</label>
-											<input type="text" ref="build_config_name" className="form-control"/>
-										</div>
-									</div>
-									</div>
-									<button className="btn btn-primary" onClick={this.submit}>
-										Save
-									</button>
-									<Link to='/buildconfigs/home' className='btn btn-primary' role='button'>Back</Link>
-								</form>
+								<BuildConfigForm attributes={currentBuildConfig.attributes} />
+								<button className="btn btn-primary" onClick={this.submit}>
+									Save
+								</button>
+								<Link to='/buildconfigs/home' className='btn btn-primary' role='button'>Back</Link>
 							</div>
 						</div>
 					</div>
@@ -95,7 +78,7 @@ class CloneBuildConfig extends React.Component {
 			</div>
 		);
 	}
-};
+}
 
 CloneBuildConfig.propTypes = {
 	params: PropTypes.object.isRequired,

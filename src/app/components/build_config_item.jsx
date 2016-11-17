@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import * as actions from '../actions'
 import {connect} from 'react-redux';
+import BuildConfigShow from './build_config_show';
 
 class BuildConfigItem extends React.Component {
 
@@ -25,20 +26,7 @@ class BuildConfigItem extends React.Component {
 						</div>
 					</div>
 					<div className="container">
-						<form>
-							<div className="form-group">
-								<legend className="col-sm-10">Username</legend>
-								<input type="text" className="form-control" defaultValue={attributes.username}/>
-							</div>
-							<div className="form-group">
-								<legend className="col-sm-10">Password</legend>
-								<input type="text" className="form-control" defaultValue={attributes.password}/>
-							</div>
-							<div className="form-group">
-								<legend className="col-sm-10">Token</legend>
-								<input type="text" className="form-control" defaultValue={attributes.token}/>
-							</div>
-						</form>
+						<BuildConfigShow username={attributes.username} password={attributes.password} token={attributes.token} />
 					</div>
 
 					<div className="card-footer text-muted">
