@@ -42,10 +42,10 @@ class CloneBuildConfig extends React.Component {
 		const {currentBuildConfig} = this.props;
 		let attributes = new Object();
 		for(let key of Object.keys(currentBuildConfig.attributes)) {
-			attributes[key] = ReactDOM.findDOMNode(this.refs[key]).value;
+			attributes[key] = ReactDOM.findDOMNode(this.refs.buildConfigCloneForm.refs.inputFields.refs[key]).value;
 		}
 		return {
-			environment: ReactDOM.findDOMNode(this.refs.build_config_name).value,
+			environment: ReactDOM.findDOMNode(this.refs.buildConfigCloneForm.refs.build_config_name).value,
 			attributes: attributes
 		}
 	};
@@ -66,7 +66,7 @@ class CloneBuildConfig extends React.Component {
 					<div className="row">
 						<div className="bd-example">
 							<div id="cloneBuildConfigform">
-								<BuildConfigForm attributes={currentBuildConfig.attributes} />
+								<BuildConfigForm ref="buildConfigCloneForm" attributes={currentBuildConfig.attributes} />
 								<button className="btn btn-primary" onClick={this.submit}>
 									Save
 								</button>

@@ -7,7 +7,7 @@ class BuildConfigForm extends React.Component {
         return (<form className="form">
 					<div className="card">
 						<div className="card-block">
-							<DynamicInputFields fields={attributes} />
+							<DynamicInputFields ref="inputFields" fields={attributes} />
 							<div className="form-group">
 								<label htmlFor='build_config_name'>Name</label>
 								<input type="text" ref="build_config_name" className="form-control" defaultValue={name}/>
