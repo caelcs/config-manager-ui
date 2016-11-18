@@ -67,9 +67,7 @@ class CloneBuildConfig extends React.Component {
 						<div className="bd-example">
 							<div id="cloneBuildConfigform">
 								<BuildConfigForm ref="buildConfigCloneForm" attributes={currentBuildConfig.attributes} />
-								<button className="btn btn-primary" onClick={this.submit}>
-									Save
-								</button>
+								<button className="btn btn-primary" type="button" onClick={this.submit}>Save</button>
 								<Link to='/buildconfigs/home' className='btn btn-primary' role='button'>Back</Link>
 							</div>
 						</div>
