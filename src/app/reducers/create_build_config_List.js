@@ -7,7 +7,6 @@ const createBuildConfigList = (filter) => {
 			return state;
 		}
 
-		console.log(action.type);
 		switch (action.type) {
 			case 'ALL_BUILD_CONFIG_REQUEST':
 				return true;
@@ -45,7 +44,7 @@ const createBuildConfigList = (filter) => {
 		isFetching,
 		list
 	});
-}
+};
 
 export default createBuildConfigList;
 

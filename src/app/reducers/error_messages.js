@@ -64,7 +64,7 @@ export default errors;
 
 const childErrorMsg = (state) => {
 	return state.childErrorMessages;
-}
+};
 
 export const getChildErrorMsg = (state) => {
 	return childErrorMsg(state.errors);
@@ -72,7 +72,7 @@ export const getChildErrorMsg = (state) => {
 
 const generalErrorMsg = (state) => {
 	return state.generalErrorMessages;
-}
+};
 
 export const getGeneralErrorMsg = (state) => {
 	return generalErrorMsg(state.errors);
@@ -80,7 +80,7 @@ export const getGeneralErrorMsg = (state) => {
 
 const apiErrorMsg = (state) => {
 	return state.apiErrorMessages;
-}
+};
 
 export const getApiErrorMsg = (state) => {
 	return apiErrorMsg(state.errors);
