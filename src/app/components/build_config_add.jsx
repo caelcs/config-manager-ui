@@ -3,16 +3,12 @@ import * as actions from '../actions';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {getBuildConfigNew} from '../reducers/build_config';
-import {getChildErrorMsg, getGeneralErrorMsg} from '../reducers/error_messages';
+import DefaultFieldsErrors from './default_fields_errors';
+import CustomFieldsErrors from './custom_fields_errors';
 
 const mapStateToProps = (state) => {
-	console.log('mapping props');
-	const generalErrorTemp = getGeneralErrorMsg(state);
-	console.log(generalErrorTemp);
 	return {
-		buildConfigNew: getBuildConfigNew(state),
-		errors: getChildErrorMsg(state),
-		generalErrors: generalErrorTemp
+		buildConfigNew: getBuildConfigNew(state)
 	};
 };
 
@@ -95,11 +91,7 @@ class BuildConfigAdd extends React.Component {
 	};
 
 	render() {
-		const {buildConfigNew, errors, generalErrors} = this.props;
-		console.log('rendering');
-		console.log(generalErrors);
-		console.log(buildConfigNew);
-		console.log(errors);
+		const {buildConfigNew} = this.props;
 		return (
 			<div>
 				<div className="page-header"><h1>Adding new build config</h1></div>
@@ -110,17 +102,9 @@ class BuildConfigAdd extends React.Component {
 								<form className="form-inline">
 									<div className="card">
 										<div className="card-block">
-											{
-												generalErrors.map((value, i) => {
-													console.log('rendering error');
-													console.log(value);
-													console.log(i);
-													return (
-														<div className="alert alert-danger" role="alert" key={i}>
-															<strong>Error: </strong>{value}
-														</div>);
-												})
-											}
+
+											<DefaultFieldsErrors />
+
 											<div className="form-group">
 												<label htmlFor='build_config_name'>Name</label>
 												<input type="text" ref={node => { this.name = node; }} className="form-control"/>
@@ -139,9 +123,6 @@ class BuildConfigAdd extends React.Component {
 											</div>
 											{
 												Object.entries(buildConfigNew).map(([key, value]) => {
-													console.log('rendering buildconfignew');
-													console.log(key);
-													console.log(value);
 													return (
 														<div className="form-group no-inline" key={key}>
 															<label htmlFor={key}>{key}</label>
@@ -156,17 +137,9 @@ class BuildConfigAdd extends React.Component {
 											<div className="card-block">
 												<div className="form-group">
 													<legend>Please add properties to your build config</legend>
-													{
-														errors.map((value, i) => {
-															console.log('rendering errors');
-															console.log(i);
-															console.log(value);
-															return (
-																<div className="alert alert-danger" role="alert" key={i}>
-																<strong>Error: </strong>{value}
-															</div>);
-														})
-													}
+
+													<CustomFieldsErrors />
+
 													<button className="btn btn-secondary" type="button" onClick={this.update}>Add</button>
 													<input type="text" className="form-control" ref={node => { this.attrName = node; }} placeholder="name"/>
 													<input type="text" className="form-control" ref={node => { this.attrValue = node; }} placeholder="value"/>
@@ -183,16 +156,13 @@ class BuildConfigAdd extends React.Component {
 						</div>
 					</div>
 				</div>
-				{console.log('finishing render')}
 			</div>);
 	}
 
 }
 
 BuildConfigAdd.propTypes = {
-	buildConfigNew: PropTypes.object.isRequired,
-	errors: PropTypes.array.isRequired,
-	generalErrors: PropTypes.array.isRequired
+	buildConfigNew: PropTypes.object.isRequired
 };
 
 BuildConfigAdd = withRouter(connect(mapStateToProps, actions)(BuildConfigAdd));
