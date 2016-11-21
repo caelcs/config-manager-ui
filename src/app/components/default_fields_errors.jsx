@@ -26,8 +26,4 @@ class DefaultFieldsErrors extends React.Component {
     }
 }
 
-DefaultFieldsErrors.propTypes = {
-	generalErrors: PropTypes.array.isRequired
-};
-
 export default connect(mapStateToProps, null)(DefaultFieldsErrors);

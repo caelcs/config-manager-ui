@@ -22,16 +22,16 @@ const oneBuildConfig = () => {
 		}
 	};
 
-	const buildConfigNew = (state = {}, action) => {
+	const buildConfigNew = (state = {environment: '', username: '', password: '', token: '', attributes: {}}, action) => {
 		switch (action.type) {
 			case 'NEW_BUILD_CONFIG_RESPONSE':
 				return Object.assign({}, state,
 					action.attributes
 				);
 			case 'NEW_BUILD_CONFIG_FAILURE':
-				return {};
+				return {environment: '', username: '', password: '', token: '', attributes: {}};
 			case 'EMPTY_BUILD_CONFIG':
-				return {};
+				return {environment: '', username: '', password: '', token: '', attributes: {}};
 			default:
 				return state;
 		}

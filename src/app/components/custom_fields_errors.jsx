@@ -26,8 +26,4 @@ class CustomFieldsErrors extends React.Component {
     }
 }
 
-CustomFieldsErrors.propTypes = {
-	errors: PropTypes.array.isRequired
-};
-
 export default connect(mapStateToProps, null)(CustomFieldsErrors);

@@ -12,3 +12,12 @@ export const redirector = (state, dispatch) => {
 		dispatch(emptyApiErrors);
 	}
 };
+
+
+export const validateNotEmptyOrUndefined = (value, fieldName, errorAction) => {
+	if (value === undefined || value === '') {
+		value = '';
+		errorAction(fieldName + ' can not be null or empty.');
+		throw new Error(fieldName + ' can not be null or empty.');
+	}
+};

@@ -91,7 +91,11 @@ const attributeAdded = (result) => ({
 });
 
 export const addAttributeAction = (name, value) => (dispatch) => {
-	dispatch(attributeAdded({[name]:value}))
+	dispatch(attributeAdded({attributes: {[name]:value}}))
+};
+
+export const addDefaultAttributeAction = (name, value) => (dispatch) => {
+	dispatch(attributeAdded({[name]: value}))
 };
 
 const attributeEmpty = () => ({
