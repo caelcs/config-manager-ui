@@ -765,7 +765,7 @@
     margin: 0;
 }
 
-.bd-example button, input, label {
+.bd-example button, input, label, a {
     margin: 0.3rem;
 }
 
