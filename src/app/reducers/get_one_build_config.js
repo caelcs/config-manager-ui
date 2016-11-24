@@ -25,14 +25,14 @@ const oneBuildConfig = () => {
 	const buildConfigNew = (state = {environment: '', username: '', password: '', token: '', attributes: {}}, action) => {
 		switch (action.type) {
 			case 'NEW_BUILD_CONFIG_RESPONSE':
-				let tempResult = ({environment: '', username: action.attributes.attributes.username, password: action.attributes.attributes.password, token: action.attributes.attributes.token, attributes: action.attributes.attributes});
-				return tempResult;
+				let buildConfigNewResult = ({environment: '', username: action.attributes.attributes.username, password: action.attributes.attributes.password, token: action.attributes.attributes.token, attributes: action.attributes.attributes});
+				return buildConfigNewResult;
 			case 'LOAD_BUILD_CONFIG_FOR_EDIT_RESPONSE':
-				let tempResult = ({environment: '', username: action.response.attributes.username, password: action.response.attributes.password, token: action.response.attributes.token, attributes: action.response.attributes});
-				delete tempResult.attributes.username;
-				delete tempResult.attributes.password;
-				delete tempResult.attributes.token;
-				return tempResult;
+				let loadBuildConfigResult = ({environment: '', username: action.response.attributes.username, password: action.response.attributes.password, token: action.response.attributes.token, attributes: action.response.attributes});
+				delete loadBuildConfigResult.attributes.username;
+				delete loadBuildConfigResult.attributes.password;
+				delete loadBuildConfigResult.attributes.token;
+				return loadBuildConfigResult;
 			case 'NEW_BUILD_CONFIG_FAILURE':
 				return {environment: '', username: '', password: '', token: '', attributes: {}};
 			case 'EMPTY_BUILD_CONFIG':

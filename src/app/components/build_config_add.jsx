@@ -27,6 +27,7 @@ class BuildConfigAdd extends React.Component {
 
 	back = () => {
 		const {fetchBuildConfigsAction, router} = this.props;
+		this.reset();
 		fetchBuildConfigsAction('all');
 		router.push('/buildconfigs/home');
 	};

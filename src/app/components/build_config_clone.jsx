@@ -18,13 +18,18 @@ const mapStateToProps = (state, params) => {
 class CloneBuildConfig extends React.Component {
 
 	componentDidMount() {
-		console.log(' mount 1');
+		this.reset();
 		this.fetchBuildConfig();
 	}
 
+	reset = () => {
+		const {emptyGeneralErrorMessagesAction, emptyErrorMessagesAction} = this.props;
+		emptyGeneralErrorMessagesAction();
+		emptyErrorMessagesAction();
+	};
+
 	fetchBuildConfig = () => {
 		const {env, loadBuildConfigForEditAction} = this.props;
-		console.log(' loading ');
 		loadBuildConfigForEditAction(env);
 	};
 
@@ -37,6 +42,7 @@ class CloneBuildConfig extends React.Component {
 	};
 
 	redirectToHome = () => {
+		this.reset();
 		const {router} = this.props;
 		router.push('/buildconfigs/home');
 	};
