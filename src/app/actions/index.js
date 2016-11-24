@@ -71,6 +71,24 @@ export const getBuildConfigAction = (env) => (dispatch, getState) => {
 	});
 };
 
+const loadBuildConfigForEditResponse = (response) => ({
+	type: 'LOAD_BUILD_CONFIG_FOR_EDIT_RESPONSE',
+	response
+});
+
+export const loadBuildConfigForEditAction = (env) => (dispatch, getState) => {
+	console.log(' load action ');
+	dispatch(getBuildConfigRequest(env));
+
+	return axios.get(getState().apiConfig.apiUrl + '/buildconfigs/' + env).then(response => {
+		console.log(' success ');
+		dispatch(loadBuildConfigForEditResponse(response.data));
+	}).catch(error => {
+		console.log(' failure ');
+		dispatch(apiFail('LOAD_BUILD_CONFIG_FOR_EDIT_FAILURE', error));
+	});
+};
+
 const deleteBuildConfigResponse = (env) => ({
 	type: 'DELETE_BUILD_CONFIG_RESPONSE',
 	env

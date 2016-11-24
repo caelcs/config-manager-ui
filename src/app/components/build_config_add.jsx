@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {getBuildConfigNew} from '../reducers/build_config';
 import {validateNotEmptyOrUndefined} from '../utils/index';
-import BuildConfigAddForm from './build_config_add_form';
+import BuildConfigForm from './build_config_form';
 
 const mapStateToProps = (state) => {
 	return {
@@ -14,11 +14,19 @@ const mapStateToProps = (state) => {
 
 class BuildConfigAdd extends React.Component {
 
-	back = () => {
-		const {emptyGeneralErrorMessagesAction, emptyErrorMessagesAction, clearBuildConfigNewAction, fetchBuildConfigsAction, router} = this.props;
+	componentDidMount() {
+		this.reset();
+	}
+
+	reset = () => {
+		const {emptyGeneralErrorMessagesAction, emptyErrorMessagesAction, clearBuildConfigNewAction} = this.props;
 		emptyGeneralErrorMessagesAction();
 		emptyErrorMessagesAction();
 		clearBuildConfigNewAction();
+	};
+
+	back = () => {
+		const {fetchBuildConfigsAction, router} = this.props;
 		fetchBuildConfigsAction('all');
 		router.push('/buildconfigs/home');
 	};
@@ -50,7 +58,7 @@ class BuildConfigAdd extends React.Component {
 					<div className="row">
 						<div className="bd-example">
 							<div id="addBuildConfigform">
-								<BuildConfigAddForm />
+								<BuildConfigForm />
 								<div>
 									<button className="btn btn-primary" type="button" onClick={this.save}>Save</button>
 									<button className="btn btn-primary" type="button" onClick={this.back}>Back</button>

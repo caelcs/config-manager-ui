@@ -1,17 +1,16 @@
 import React, {PropTypes} from 'react';
-import {Link} from 'react-router';
 import { connect } from 'react-redux';
-import {getOneBuildConfig} from '../reducers/build_config';
+import {getBuildConfigNew} from '../reducers/build_config';
 import * as actions from '../actions';
 import {withRouter} from 'react-router';
-import ReactDOM from 'react-dom';
 import BuildConfigForm from './build_config_form';
 import LoadingData from './loading_data';
+import {validateNotEmptyOrUndefined} from '../utils/index';
 
 const mapStateToProps = (state, params) => {
 	const env = params.location.query.environment;
 	return {
-		currentBuildConfig: getOneBuildConfig(state, env),
+		buildConfigNew: getBuildConfigNew(state, env),
 		env,
 	};
 };
@@ -19,17 +18,21 @@ const mapStateToProps = (state, params) => {
 class CloneBuildConfig extends React.Component {
 
 	componentDidMount() {
+		console.log(' mount 1');
 		this.fetchBuildConfig();
 	}
 
 	fetchBuildConfig = () => {
-		const {env, getBuildConfigAction} = this.props;
-		getBuildConfigAction(env);
+		const {env, loadBuildConfigForEditAction} = this.props;
+		console.log(' loading ');
+		loadBuildConfigForEditAction(env);
 	};
 
 	submit = () => {
-		const {saveBuildConfigAction} = this.props;
-		const body = this.buildRequestBody();
+		const {saveBuildConfigAction, buildConfigNew, setGeneralErrorMessageAction} = this.props;
+
+		validateNotEmptyOrUndefined(buildConfigNew.environment, 'Environment', setGeneralErrorMessageAction);
+		const body = this.buildRequestBody(buildConfigNew);
 		saveBuildConfigAction(body, this.redirectToHome);
 	};
 
@@ -38,21 +41,16 @@ class CloneBuildConfig extends React.Component {
 		router.push('/buildconfigs/home');
 	};
 
-	buildRequestBody = () => {
-		const {currentBuildConfig} = this.props;
-		let attributes = new Object();
-		for(let key of Object.keys(currentBuildConfig.attributes)) {
-			attributes[key] = ReactDOM.findDOMNode(this.refs.buildConfigCloneForm.refs.inputFields.refs[key]).value;
-		}
-		return {
-			environment: ReactDOM.findDOMNode(this.refs.buildConfigCloneForm.refs.build_config_name).value,
-			attributes: attributes
-		}
+	buildRequestBody = (buildConfigNew) => {
+		return ({
+			environment: buildConfigNew.environment,
+			attributes: Object.assign({}, buildConfigNew.attributes, {username: buildConfigNew.username, password: buildConfigNew.password, token: buildConfigNew.token})
+		});
 	};
 
 	render(){
-		const {env, currentBuildConfig} = this.props;
-		if (currentBuildConfig.attributes === undefined) {
+		const {env, buildConfigNew} = this.props;
+		if (buildConfigNew.attributes === undefined) {
 			return (<div id="cloneBuildConfigContainer" className="container-fluid">
 				<LoadingData />
 			</div>);
@@ -66,9 +64,9 @@ class CloneBuildConfig extends React.Component {
 					<div className="row">
 						<div className="bd-example">
 							<div id="cloneBuildConfigform">
-								<BuildConfigForm ref="buildConfigCloneForm" attributes={currentBuildConfig.attributes} />
+								<BuildConfigForm />
 								<button className="btn btn-primary" type="button" onClick={this.submit}>Save</button>
-								<Link to='/buildconfigs/home' className='btn btn-primary' role='button'>Back</Link>
+								<button className="btn btn-primary" type="button" onClick={this.redirectToHome}>Back</button>
 							</div>
 						</div>
 					</div>
@@ -80,7 +78,7 @@ class CloneBuildConfig extends React.Component {
 
 CloneBuildConfig.propTypes = {
 	params: PropTypes.object.isRequired,
-	currentBuildConfig: PropTypes.object.isRequired,
+	buildConfigNew: PropTypes.object.isRequired,
 	env: PropTypes.string.isRequired,
 	router: PropTypes.object.isRequired,
 };
