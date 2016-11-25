@@ -23,9 +23,13 @@ export const validateNotEmptyOrUndefined = (value, fieldName, errorAction) => {
 };
 
 export const buildConfigRequestBody = (buildConfigNew) => {
+	console.log(buildConfigNew);
+	const attributes = Object.assign({}, buildConfigNew.attributes, {username: buildConfigNew.username, password: buildConfigNew.password, token: buildConfigNew.token});
+	console.log('attributes');
+	console.log(attributes);
 	return ({
 		environment: buildConfigNew.environment,
-		attributes: Object.assign({}, buildConfigNew.attributes, {username: buildConfigNew.username, password: buildConfigNew.password, token: buildConfigNew.token})
+		attributes: attributes
 	});
 };
 

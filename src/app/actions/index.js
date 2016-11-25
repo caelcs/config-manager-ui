@@ -39,14 +39,20 @@ export const fetchBuildConfigsAction = (filter) => (dispatch, getState) => {
 };
 
 export const saveBuildConfigAction = (buildConfig, redirectTo) => (dispatch, getState) => {
-	console.log('executing save action');
 	return axios.post(getState().apiConfig.apiUrl + '/buildconfigs', buildConfig)
 		.then(() => {
-			console.log('redirecting back');
 			redirectTo();
 		}).catch((error) => {
-			console.log('error');
-			dispatch(apiFail('NEW_BUILD_CONFIG_FAILURE', error));
+			dispatch(apiFail('SAVE_BUILD_CONFIG_FAILURE', error));
+		});
+};
+
+export const updateBuildConfigAction = (env, buildConfig, redirectTo) => (dispatch, getState) => {
+	return axios.post(getState().apiConfig.apiUrl + '/buildconfigs/' + env, buildConfig)
+		.then(() => {
+			redirectTo();
+		}).catch((error) => {
+			dispatch(apiFail('UPDATE_BUILD_CONFIG_FAILURE', error));
 		});
 };
 
@@ -68,6 +74,21 @@ export const getBuildConfigAction = (env) => (dispatch, getState) => {
 		dispatch(getBuildConfigResponse(env, response.data));
 	}).catch(error => {
 		dispatch(apiFail('ONE_BUILD_CONFIG_FAILURE', error));
+	});
+};
+
+const loadBuildConfigForCloneResponse = (response) => ({
+	type: 'LOAD_BUILD_CONFIG_FOR_CLONE_RESPONSE',
+	response
+});
+
+export const loadBuildConfigForCloneAction = (env) => (dispatch, getState) => {
+	dispatch(getBuildConfigRequest(env));
+
+	return axios.get(getState().apiConfig.apiUrl + '/buildconfigs/' + env).then(response => {
+		dispatch(loadBuildConfigForCloneResponse(response.data));
+	}).catch(error => {
+		dispatch(apiFail('LOAD_BUILD_CONFIG_FOR_CLONE_FAILURE', error));
 	});
 };
 
@@ -100,17 +121,17 @@ export const deleteBuildConfigAction = (env, postAction) => (dispatch, getState)
 	});
 };
 
-const attributeAdded = (result) => ({
-	type: 'NEW_BUILD_CONFIG_RESPONSE',
+const attributeAdded = (result, type) => ({
+	type,
 	attributes: result
 });
 
 export const addAttributeAction = (name, value) => (dispatch) => {
-	dispatch(attributeAdded({attributes: {[name]:value}}))
+	dispatch(attributeAdded({attributes: {[name]:value}}, 'ADD_CUSTOM_ATTRIBUTE_RESPONSE'))
 };
 
 export const addDefaultAttributeAction = (name, value) => (dispatch) => {
-	dispatch(attributeAdded({[name]: value}))
+	dispatch(attributeAdded({[name]: value}, 'ADD_DEFAULT_ATTRIBUTE_RESPONSE'))
 };
 
 const attributeEmpty = () => ({

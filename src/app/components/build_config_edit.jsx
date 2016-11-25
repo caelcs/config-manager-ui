@@ -15,7 +15,7 @@ const mapStateToProps = (state, params) => {
 	};
 };
 
-class BuildConfigClone extends React.Component {
+class BuildConfigEdit extends React.Component {
 
 	componentDidMount() {
 		this.reset();
@@ -29,18 +29,17 @@ class BuildConfigClone extends React.Component {
 	};
 
 	fetchBuildConfig = () => {
-		const {env, loadBuildConfigForCloneAction} = this.props;
-		loadBuildConfigForCloneAction(env);
+		const {env, loadBuildConfigForEditAction} = this.props;
+		loadBuildConfigForEditAction(env);
 	};
 
 	submit = () => {
-		const {saveBuildConfigAction, buildConfigNew, setGeneralErrorMessageAction} = this.props;
-
+		const {env, updateBuildConfigAction, buildConfigNew, setGeneralErrorMessageAction} = this.props;
 		validateMandatoryFields(buildConfigNew, setGeneralErrorMessageAction);
 
 		const body = buildConfigRequestBody(buildConfigNew);
 
-		saveBuildConfigAction(body, this.back);
+		updateBuildConfigAction(env, body, this.back);
 	};
 
 	back = () => {
@@ -52,20 +51,20 @@ class BuildConfigClone extends React.Component {
 	render(){
 		const {env, buildConfigNew} = this.props;
 		if (buildConfigNew.attributes === undefined) {
-			return (<div id="cloneBuildConfigContainer" className="container-fluid">
+			return (<div id="editBuildConfigContainer" className="container-fluid">
 				<LoadingData />
 			</div>);
 		}
 		return (
 			<div>
 				<div className="page-header">
-					<h1>Clone {env}</h1>
+					<h1>Editing environment: {env}</h1>
 				</div>
-				<div id="cloneBuildConfigContainer" className="container-fluid">
+				<div id="editBuildConfigContainer" className="container-fluid">
 					<div className="row">
 						<div className="bd-example">
-							<div id="cloneBuildConfigform">
-								<BuildConfigForm />
+							<div id="editBuildConfigform">
+								<BuildConfigForm isEnvironmentFieldEditable="false" />
 								<button className="btn btn-primary" type="button" onClick={this.submit}>Save</button>
 								<button className="btn btn-primary" type="button" onClick={this.back}>Back</button>
 							</div>
@@ -77,11 +76,11 @@ class BuildConfigClone extends React.Component {
 	}
 }
 
-BuildConfigClone.propTypes = {
+BuildConfigEdit.propTypes = {
 	params: PropTypes.object.isRequired,
 	buildConfigNew: PropTypes.object.isRequired,
 	env: PropTypes.string.isRequired,
 	router: PropTypes.object.isRequired,
 };
 
-export default BuildConfigClone = withRouter(connect(mapStateToProps, actions)(BuildConfigClone));
+export default BuildConfigEdit = withRouter(connect(mapStateToProps, actions)(BuildConfigEdit));

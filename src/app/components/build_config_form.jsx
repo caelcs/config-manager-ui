@@ -47,7 +47,7 @@ class BuildConfigForm extends React.Component {
 	};
 
 	render() {
-		const {buildConfigNew} = this.props;
+		const {buildConfigNew, isEnvironmentFieldEditable = true} = this.props;
 		return (
 			<form className="form-inline">
 				<div className="card">
@@ -57,7 +57,7 @@ class BuildConfigForm extends React.Component {
 
 						<div className="form-group">
 							<label htmlFor='environment'>Environment</label>
-							<input type="text" id="environment" className="form-control" value={buildConfigNew.environment} onChange={this.updateDefaultAttribute} />
+							<input disabled={!isEnvironmentFieldEditable} type="text" id="environment" className="form-control" value={buildConfigNew.environment} onChange={this.updateDefaultAttribute} />
 						</div>
 						<div className="form-group">
 							<label htmlFor='username'>Username</label>
@@ -76,7 +76,7 @@ class BuildConfigForm extends React.Component {
 								return (
 									<div className="form-group no-inline" key={key}>
 										<label htmlFor={key}>{key}</label>
-										<input type="text" ref={key} className="form-control" defaultValue={value}/>
+										<input type="text" ref={key} className="form-control" defaultValue={value} />
 									</div>);
 							})
 						}
