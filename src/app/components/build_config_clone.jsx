@@ -5,7 +5,7 @@ import * as actions from '../actions';
 import {withRouter} from 'react-router';
 import BuildConfigForm from './build_config_form';
 import LoadingData from './loading_data';
-import {validateNotEmptyOrUndefined} from '../utils/index';
+import {validateNotEmptyOrUndefined, buildConfigRequestBody} from '../utils/index';
 
 const mapStateToProps = (state, params) => {
 	const env = params.location.query.environment;
@@ -37,21 +37,22 @@ class CloneBuildConfig extends React.Component {
 		const {saveBuildConfigAction, buildConfigNew, setGeneralErrorMessageAction} = this.props;
 
 		validateNotEmptyOrUndefined(buildConfigNew.environment, 'Environment', setGeneralErrorMessageAction);
-		const body = this.buildRequestBody(buildConfigNew);
-		saveBuildConfigAction(body, this.redirectToHome);
+
+		validateNotEmptyOrUndefined(buildConfigNew.username, 'Username', setGeneralErrorMessageAction);
+
+		validateNotEmptyOrUndefined(buildConfigNew.token, 'Token', setGeneralErrorMessageAction);
+
+		validateNotEmptyOrUndefined(buildConfigNew.password, 'Password', setGeneralErrorMessageAction);
+
+		const body = buildConfigRequestBody(buildConfigNew);
+
+		saveBuildConfigAction(body, this.back);
 	};
 
-	redirectToHome = () => {
+	back = () => {
 		this.reset();
 		const {router} = this.props;
 		router.push('/buildconfigs/home');
-	};
-
-	buildRequestBody = (buildConfigNew) => {
-		return ({
-			environment: buildConfigNew.environment,
-			attributes: Object.assign({}, buildConfigNew.attributes, {username: buildConfigNew.username, password: buildConfigNew.password, token: buildConfigNew.token})
-		});
 	};
 
 	render(){
@@ -72,7 +73,7 @@ class CloneBuildConfig extends React.Component {
 							<div id="cloneBuildConfigform">
 								<BuildConfigForm />
 								<button className="btn btn-primary" type="button" onClick={this.submit}>Save</button>
-								<button className="btn btn-primary" type="button" onClick={this.redirectToHome}>Back</button>
+								<button className="btn btn-primary" type="button" onClick={this.back}>Back</button>
 							</div>
 						</div>
 					</div>

@@ -21,3 +21,10 @@ export const validateNotEmptyOrUndefined = (value, fieldName, errorAction) => {
 		throw new Error(fieldName + ' can not be null or empty.');
 	}
 };
+
+export const buildConfigRequestBody = (buildConfigNew) => {
+	return ({
+		environment: buildConfigNew.environment,
+		attributes: Object.assign({}, buildConfigNew.attributes, {username: buildConfigNew.username, password: buildConfigNew.password, token: buildConfigNew.token})
+	});
+};
