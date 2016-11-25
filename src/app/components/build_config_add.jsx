@@ -3,7 +3,7 @@ import * as actions from '../actions';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {getBuildConfigNew} from '../reducers/build_config';
-import {validateNotEmptyOrUndefined, buildConfigRequestBody} from '../utils/index';
+import {validateMandatoryFields, buildConfigRequestBody} from '../utils/index';
 import BuildConfigForm from './build_config_form';
 
 const mapStateToProps = (state) => {
@@ -35,13 +35,7 @@ class BuildConfigAdd extends React.Component {
 	save = () => {
 		const {setGeneralErrorMessageAction, buildConfigNew, saveBuildConfigAction} = this.props;
 
-		validateNotEmptyOrUndefined(buildConfigNew.environment, 'Environment', setGeneralErrorMessageAction);
-
-		validateNotEmptyOrUndefined(buildConfigNew.username, 'Username', setGeneralErrorMessageAction);
-
-		validateNotEmptyOrUndefined(buildConfigNew.token, 'Token', setGeneralErrorMessageAction);
-
-		validateNotEmptyOrUndefined(buildConfigNew.password, 'Password', setGeneralErrorMessageAction);
+		validateMandatoryFields(buildConfigNew, setGeneralErrorMessageAction);
 
 		const buildConfig = buildConfigRequestBody(buildConfigNew);
 

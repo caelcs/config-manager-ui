@@ -5,7 +5,7 @@ import * as actions from '../actions';
 import {withRouter} from 'react-router';
 import BuildConfigForm from './build_config_form';
 import LoadingData from './loading_data';
-import {validateNotEmptyOrUndefined, buildConfigRequestBody} from '../utils/index';
+import {validateMandatoryFields, buildConfigRequestBody} from '../utils/index';
 
 const mapStateToProps = (state, params) => {
 	const env = params.location.query.environment;
@@ -36,13 +36,7 @@ class CloneBuildConfig extends React.Component {
 	submit = () => {
 		const {saveBuildConfigAction, buildConfigNew, setGeneralErrorMessageAction} = this.props;
 
-		validateNotEmptyOrUndefined(buildConfigNew.environment, 'Environment', setGeneralErrorMessageAction);
-
-		validateNotEmptyOrUndefined(buildConfigNew.username, 'Username', setGeneralErrorMessageAction);
-
-		validateNotEmptyOrUndefined(buildConfigNew.token, 'Token', setGeneralErrorMessageAction);
-
-		validateNotEmptyOrUndefined(buildConfigNew.password, 'Password', setGeneralErrorMessageAction);
+		validateMandatoryFields(buildConfigNew, setGeneralErrorMessageAction);
 
 		const body = buildConfigRequestBody(buildConfigNew);
 

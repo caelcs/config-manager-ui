@@ -28,3 +28,13 @@ export const buildConfigRequestBody = (buildConfigNew) => {
 		attributes: Object.assign({}, buildConfigNew.attributes, {username: buildConfigNew.username, password: buildConfigNew.password, token: buildConfigNew.token})
 	});
 };
+
+export const validateMandatoryFields = (buildConfigNew, setGeneralErrorMessageAction) => {
+	validateNotEmptyOrUndefined(buildConfigNew.environment, 'Environment', setGeneralErrorMessageAction);
+
+	validateNotEmptyOrUndefined(buildConfigNew.username, 'Username', setGeneralErrorMessageAction);
+
+	validateNotEmptyOrUndefined(buildConfigNew.token, 'Token', setGeneralErrorMessageAction);
+
+	validateNotEmptyOrUndefined(buildConfigNew.password, 'Password', setGeneralErrorMessageAction);
+};
