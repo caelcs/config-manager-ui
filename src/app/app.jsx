@@ -8,7 +8,7 @@ import BuildConfigEdit from './components/build_config_edit';
 
 
 const Home = () => <div><h1>Welcome to Config Manager UI</h1></div>;
-const CustomSettings = () => <div>CustomSettings</div>;
+const CustomSettings = () => <div>Under Construction</div>;
 
 class App extends React.Component {
 	render() {

@@ -36,7 +36,7 @@ class BuildConfigItem extends React.Component {
 						<Link className="btn btn-primary" to={{pathname: '/buildconfigs/edit', query: {environment: environment}}}>
 							Edit
 						</Link>
-						<button className="btn btn-danger" onClick={this.deleteBuildConfig}>
+						<button className="btn btn-danger" type="button" onClick={this.deleteBuildConfig}>
 							Delete
 						</button>
 					</div>
