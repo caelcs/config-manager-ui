@@ -39,7 +39,7 @@ class BuildConfigList extends React.Component {
 				if (isFetching && !apiErrors.length) {
 					return (<LoadingData/>)
 				}
-				
+
 				if (!isFetching && !buildConfigs.length ) {
 					return (<EmptyData/>)
 				}
