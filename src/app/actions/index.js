@@ -134,6 +134,16 @@ export const addDefaultAttributeAction = (name, value) => (dispatch) => {
 	dispatch(attributeAdded({[name]: value}, 'ADD_DEFAULT_ATTRIBUTE_RESPONSE'))
 };
 
+const attributeRemoved = (name) => ({
+	type: 'REMOVE_ATTRIBUTE_RESPONSE',
+	name
+});
+
+export const removeAttributeAction = (name) => (dispatch) => {
+	dispatch(attributeRemoved(name));
+};
+
+
 const attributeEmpty = () => ({
 	type: 'EMPTY_BUILD_CONFIG'
 });

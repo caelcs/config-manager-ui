@@ -45,6 +45,9 @@ const oneBuildConfig = () => {
 				return {environment: '', username: '', password: '', token: '', attributes: {}};
 			case 'EMPTY_BUILD_CONFIG':
 				return {environment: '', username: '', password: '', token: '', attributes: {}};
+			case 'REMOVE_ATTRIBUTE_RESPONSE':
+				delete state.attributes[action.name];
+				return state;
 			default:
 				return state;
 		}

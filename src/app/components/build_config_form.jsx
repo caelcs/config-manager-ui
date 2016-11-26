@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import DefaultFieldsErrors from './default_fields_errors';
 import CustomFieldsErrors from './custom_fields_errors';
-import * as actions from '../actions';
+import * as actions from '../actions/index';
 import {getBuildConfigNew} from '../reducers/build_config';
 import {validateNotEmptyOrUndefined} from '../utils/index';
 
@@ -20,6 +20,8 @@ class BuildConfigForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.updateDefaultAttribute = this.updateDefaultAttribute.bind(this);
+		this.updateAttribute = this.updateAttribute.bind(this);
+		this.removeAttribute = this.removeAttribute.bind(this);
 	}
 
 	update = () => {
@@ -44,6 +46,17 @@ class BuildConfigForm extends React.Component {
 	updateDefaultAttribute = (event) => {
 		const {addDefaultAttributeAction} = this.props;
 		addDefaultAttributeAction(event.target.id, event.target.value);
+	};
+
+	updateAttribute = (event) => {
+		const {addAttributeAction} = this.props;
+		addAttributeAction(event.target.id, event.target.value);
+	};
+
+	removeAttribute = (key, e) => {
+		e.preventDefault();
+		const {removeAttributeAction} = this.props;
+		removeAttributeAction(key);
 	};
 
 	render() {
@@ -76,7 +89,12 @@ class BuildConfigForm extends React.Component {
 								return (
 									<div className="form-group no-inline" key={key}>
 										<label htmlFor={key}>{key}</label>
-										<input type="text" ref={key} className="form-control" defaultValue={value} />
+										<div className="input-group">
+											<input type="text" id={key} ref={key} className="form-control" defaultValue={value} onChange={this.updateAttribute}/>
+											<span className="input-group-btn">
+        								<button className="btn btn-default" type="button" onClick={() => this.removeAttribute(key)}>Remove</button>
+      								</span>
+										</div>
 									</div>);
 							})
 						}
