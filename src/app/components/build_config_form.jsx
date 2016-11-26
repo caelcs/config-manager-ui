@@ -5,6 +5,7 @@ import CustomFieldsErrors from './custom_fields_errors';
 import * as actions from '../actions/index';
 import {getBuildConfigNew} from '../reducers/build_config';
 import {validateNotEmptyOrUndefined} from '../utils/index';
+import CustomAttributeInput from './build_config_custom_attribute_input';
 
 const mapStateToProps = (state) => {
 	return {
@@ -53,8 +54,7 @@ class BuildConfigForm extends React.Component {
 		addAttributeAction(event.target.id, event.target.value);
 	};
 
-	removeAttribute = (key, e) => {
-		e.preventDefault();
+	removeAttribute = (key) => (event) => {
 		const {removeAttributeAction} = this.props;
 		removeAttributeAction(key);
 	};
@@ -87,15 +87,8 @@ class BuildConfigForm extends React.Component {
 						{
 							Object.entries(buildConfigNew.attributes).map(([key, value]) => {
 								return (
-									<div className="form-group no-inline" key={key}>
-										<label htmlFor={key}>{key}</label>
-										<div className="input-group">
-											<input type="text" id={key} ref={key} className="form-control" defaultValue={value} onChange={this.updateAttribute}/>
-											<span className="input-group-btn">
-        								<button className="btn btn-default" type="button" onClick={() => this.removeAttribute(key)}>Remove</button>
-      								</span>
-										</div>
-									</div>);
+									<CustomAttributeInput key={key} name={key} value={value} removeAttribute={this.removeAttribute} updateAttribute={this.updateAttribute} />
+								);
 							})
 						}
 					</div>
