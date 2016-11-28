@@ -9,7 +9,7 @@ class CustomAttributeInput extends React.Component {
 						<div className="input-group">
 							<input type="text" id={name} ref={name} className="form-control" defaultValue={value} onChange={updateAttribute}/>
 							<span className="input-group-btn">
-        				        <button className="btn btn-default" type="button" onClick={removeAttribute(name)}>
+        				        <button className="btn btn-danger" type="button" onClick={removeAttribute(name)}>
 									<span className="fa fa-times" aria-hidden="true"></span>
 								</button>
 							</span>

@@ -68,10 +68,12 @@ class BuildConfigForm extends React.Component {
 
 						<DefaultFieldsErrors />
 
-						<div className="form-group">
-							<label htmlFor='environment'>Environment</label>
-							<input disabled={!isEnvironmentFieldEditable} type="text" id="environment" className="form-control" value={buildConfigNew.environment} onChange={this.updateDefaultAttribute} />
-						</div>
+						{isEnvironmentFieldEditable &&
+							<div className="form-group">
+								<label htmlFor='environment'>Environment</label>
+								<input type="text" id="environment" className="form-control" value={buildConfigNew.environment} onChange={this.updateDefaultAttribute} />
+							</div>
+						}
 						<div className="form-group">
 							<label htmlFor='username'>Username</label>
 							<input type="text" id="username" className="form-control" value={buildConfigNew.username} onChange={this.updateDefaultAttribute}/>
