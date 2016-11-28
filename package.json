@@ -19,6 +19,7 @@
     "axios": "^0.15.2",
     "babel-polyfill": "^6.16.0",
     "bootstrap": "^4.0.0-alpha.3",
+    "font-awesome": "^4.7.0",
     "node-sass": "^3.9.2",
     "react": "15.3.0",
     "react-dom": "15.3.0",
