@@ -62,13 +62,11 @@ class BuildConfigEdit extends React.Component {
 				</div>
 				<div id="editBuildConfigContainer" className="container-fluid">
 					<div className="row">
-						<div className="bd-example">
 							<div id="editBuildConfigform">
 								<BuildConfigForm isEnvironmentFieldEditable={false} />
 								<button className="btn btn-primary" type="button" onClick={this.submit}>Save</button>
 								<button className="btn btn-primary" type="button" onClick={this.back}>Back</button>
 							</div>
-						</div>
 					</div>
 				</div>
 			</div>

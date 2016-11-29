@@ -1,6 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap-flex.min.css';
+import 'bootstrap/dist/css/bootstrap-grid.min.css';
+import 'bootstrap/dist/css/bootstrap-reboot.min.css';
 import './assets/css/global.css';
-import 'font-awesome/css/font-awesome.min.css';
+import 'font-awesome/css/'
 
 import React from 'react';
 import { render } from 'react-dom';

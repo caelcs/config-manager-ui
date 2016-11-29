@@ -63,13 +63,11 @@ class BuildConfigClone extends React.Component {
 				</div>
 				<div id="cloneBuildConfigContainer" className="container-fluid">
 					<div className="row">
-						<div className="bd-example">
 							<div id="cloneBuildConfigform">
 								<BuildConfigForm />
 								<button className="btn btn-primary" type="button" onClick={this.submit}>Save</button>
 								<button className="btn btn-primary" type="button" onClick={this.back}>Back</button>
 							</div>
-						</div>
 					</div>
 				</div>
 			</div>
