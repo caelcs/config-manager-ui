@@ -4,7 +4,7 @@ class CustomAttributeInput extends React.Component {
     render() {
 				const {name, value, updateAttribute, removeAttribute} = this.props;
         return (
-					<div className="form-group no-inline" key={name}>
+					<div className="form-group" key={name}>
 						<label htmlFor={name}>{name}</label>
 						<div className="input-group">
 							<input type="text" id={name} ref={name} className="form-control" defaultValue={value} onChange={updateAttribute}/>

@@ -120,3 +120,26 @@ body {
         margin-right: 0;
     }
 }
+
+.separate-top {
+    margin-top: 15px;
+}
+
+.btn-primary {
+    margin-right: 15px;
+}
+
+@media (min-width: 576px) {
+    .form-inline .form-group {
+        margin-right: 10px;
+        margin-top: 15px;
+    }
+
+    .form-inline .form-group label {
+        margin-right:5px;
+    }
+
+    .no-inline {
+        display: block;
+    }
+}

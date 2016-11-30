@@ -70,7 +70,7 @@ class BuildConfigForm extends React.Component {
 
 						{isEnvironmentFieldEditable &&
 							<div className="form-group">
-								<label htmlFor='environment'>Environment</label>
+								<label className="col-form-label" htmlFor='environment'>Environment</label>
 								<input type="text" id="environment" className="form-control" value={buildConfigNew.environment} onChange={this.updateDefaultAttribute} />
 							</div>
 						}
@@ -97,13 +97,16 @@ class BuildConfigForm extends React.Component {
 				</div>
 				<div className="input-group">
 					<div className="card">
+						<div className="card-header">
+							<legend>Please add properties to your build config</legend>
+						</div>
 						<div className="card-block">
 							<div className="form-group">
-								<legend>Please add properties to your build config</legend>
-
 								<CustomFieldsErrors />
 
-								<button className="btn btn-secondary" type="button" onClick={this.update}>Add</button>
+								<button className="btn btn-primary" type="button" onClick={this.update}>
+									<span className="fa fa-plus" aria-hidden="true"></span>
+								</button>
 								<input type="text" className="form-control" ref={node => { this.attrName = node; }} placeholder="name"/>
 								<input type="text" className="form-control" ref={node => { this.attrValue = node; }} placeholder="value"/>
 							</div>
