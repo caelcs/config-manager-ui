@@ -48,7 +48,6 @@ class BuildConfigAdd extends React.Component {
 				<div className="page-header"><h1>Adding new build config</h1></div>
 				<div id="addBuildConfigContainer" className="container-fluid">
 					<div className="row">
-						<div className="bd-example">
 							<div id="addBuildConfigform">
 								<BuildConfigForm />
 								<div>
@@ -56,7 +55,6 @@ class BuildConfigAdd extends React.Component {
 									<button className="btn btn-primary" type="button" onClick={this.back}>Back</button>
 								</div>
 							</div>
-						</div>
 					</div>
 				</div>
 			</div>);
