@@ -43,7 +43,8 @@ module.exports = {
 		new WebpackCleanupPlugin(),
 		new webpack.DefinePlugin({
 			'process.env': {
-				NODE_ENV: '"production"'
+				NODE_ENV: 'production',
+				API_URL: "'https://config-manager.cf.paas.bskyb.com'"
 			}
 		}),
 		new webpack.optimize.UglifyJsPlugin({

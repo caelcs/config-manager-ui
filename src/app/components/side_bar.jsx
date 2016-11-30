@@ -19,6 +19,7 @@ class SideBar extends React.Component {
 					</li>
 					<li>
 						<Link activeClassName='linkActive' to='/customsettings'>Custom Settings</Link>
+						htmlWebpackPlugin.options
 					</li>
 				</ul>
 			</div>
