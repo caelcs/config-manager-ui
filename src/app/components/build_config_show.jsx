@@ -2,19 +2,19 @@ import React, {PropTypes} from 'react';
 
 class BuildConfigShow extends React.Component {
     render() {
-				const {username, password, token, disabled = true} = this.props;
-        return (<form disabled={disabled}>
+				const {username, password, token} = this.props;
+        return (<form disabled>
 					<div className="form-group">
-						<legend className="col-sm-10">Username</legend>
-						<input type="text" className="form-control" defaultValue={username}/>
+						<label htmlFor="show_username_input">Username</label>
+						<input id="show_username_input" type="text" className="form-control" defaultValue={username}/>
 					</div>
 					<div className="form-group">
-						<legend className="col-sm-10">Password</legend>
-						<input type="text" className="form-control" defaultValue={password}/>
+						<label htmlFor="show_password_input">Password</label>
+						<input id="show_password_input" type="text" className="form-control" defaultValue={password}/>
 					</div>
 					<div className="form-group">
-						<legend className="col-sm-10">Token</legend>
-						<input type="text" className="form-control" defaultValue={token}/>
+						<label htmlFor="show_token_input">Token</label>
+						<input id="show_token_input" type="text" className="form-control" defaultValue={token}/>
 					</div>
 				</form>);
     }
