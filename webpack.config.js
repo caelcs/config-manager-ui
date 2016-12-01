@@ -69,7 +69,7 @@ module.exports = {
 	plugins: [
 		new webpack.DefinePlugin({
 			'process.env': {
-				API_URL: "'http://localhost:8080'"
+				API_URL: JSON.stringify('http://localhost:8080')
 			}
 		}),
 		new webpack.NoErrorsPlugin(),

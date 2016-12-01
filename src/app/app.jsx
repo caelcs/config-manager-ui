@@ -1,5 +1,5 @@
 import React from 'react';
-import {Router, Route, browserHistory, IndexRoute} from 'react-router';
+import {Router, Route, hashHistory, IndexRoute} from 'react-router';
 import MainLayout from './components/main_layout';
 import BuildConfigContainer from './components/build_config_container';
 import BuildConfigClone from './components/build_config_clone';
@@ -13,7 +13,7 @@ const CustomSettings = () => <div>Under Construction</div>;
 class App extends React.Component {
 	render() {
 		return (
-			<Router history={browserHistory}>
+			<Router history={hashHistory}>
 				<Route path='/' component={MainLayout}>
 					<IndexRoute component={Home}/>
 					<Route path='/buildconfigs/home' component={BuildConfigContainer} />

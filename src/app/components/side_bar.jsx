@@ -8,7 +8,7 @@ class SideBar extends React.Component {
 				<ul className="sidebar-nav">
 					<li className="sidebar-brand">
 						<a href="#">
-							Start Bootstrap
+							NOWTV CRM
 						</a>
 					</li>
 					<li>
@@ -19,7 +19,6 @@ class SideBar extends React.Component {
 					</li>
 					<li>
 						<Link activeClassName='linkActive' to='/customsettings'>Custom Settings</Link>
-						htmlWebpackPlugin.options
 					</li>
 				</ul>
 			</div>
