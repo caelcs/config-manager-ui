@@ -1,4 +1,4 @@
-const apiConfig = (state = {apiUrl: 'http://localhost:8080'}, action) => {
+const apiConfig = (state = {apiUrl: process.env.API_URL}, action) => {
 	switch (action.type) {
 		default:
 			return state;

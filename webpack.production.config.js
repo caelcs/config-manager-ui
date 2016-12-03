@@ -43,16 +43,21 @@ module.exports = {
 		new WebpackCleanupPlugin(),
 		new webpack.DefinePlugin({
 			'process.env': {
-				NODE_ENV: '"production"'
+				NODE_ENV: JSON.stringify('production'),
+				API_URL: JSON.stringify('http://localhost:8080')
 			}
 		}),
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
-				warnings: false,
+				warnings: true,
 				screw_ie8: true,
-				drop_console: true,
-				drop_debugger: true
-			}
+				drop_console: false,
+				drop_debugger: false
+			},
+			comments: false,
+			sourceMap: false,
+			mangle: true,
+			minimize: true
 		}),
 		new webpack.optimize.OccurenceOrderPlugin(),
 		new ExtractTextPlugin('[contenthash].css', {

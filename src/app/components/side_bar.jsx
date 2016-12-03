@@ -8,7 +8,7 @@ class SideBar extends React.Component {
 				<ul className="sidebar-nav">
 					<li className="sidebar-brand">
 						<a href="#">
-							Start Bootstrap
+							NOWTV CRM
 						</a>
 					</li>
 					<li>
