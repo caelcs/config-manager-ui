@@ -5,10 +5,9 @@ import BuildConfigContainer from './components/build_config_container';
 import BuildConfigClone from './components/build_config_clone';
 import BuildConfigAdd from './components/build_config_add';
 import BuildConfigEdit from './components/build_config_edit';
-
+import CustomSettingsHome from './components/custom-settings/Home';
 
 const Home = () => <div><h1>Welcome to Config Manager UI</h1></div>;
-const CustomSettings = () => <div>Under Construction</div>;
 
 class App extends React.Component {
 	render() {
@@ -21,7 +20,7 @@ class App extends React.Component {
 					<Route path='/buildconfigs/add' component={BuildConfigAdd} />
 					<Route path='/buildconfigs/edit' component={BuildConfigEdit} />
 
-					<Route path='/customsettings' component={CustomSettings}/>
+					<Route path='/customsettings/home' component={CustomSettingsHome}/>
 				</Route>
 			</Router>
 		);
