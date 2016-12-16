@@ -46,10 +46,10 @@ class BuildConfigList extends React.Component {
 
         return (
 					<div className="row">
-							{buildConfigs.map((buildConfig, i) => {
-								return <BuildConfigItem key={i} {...buildConfig}/>;
-							})}
-				</div>);
+						{buildConfigs.map((buildConfig, i) => {
+							return <BuildConfigItem key={i} {...buildConfig}/>;
+						})}
+					</div>);
     }
 }
 
