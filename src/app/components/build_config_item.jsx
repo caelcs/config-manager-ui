@@ -14,6 +14,7 @@ class BuildConfigItem extends React.Component {
 	render() {
 		const {environment, attributes} = this.props;
 		return (
+			<div className="col-lg-6">
 					<div className="card">
 						<div className="card-header">
 							<div className="col-md-4">
@@ -39,6 +40,7 @@ class BuildConfigItem extends React.Component {
 							</button>
 						</div>
 					</div>
+			</div>
 		);
 	}
 }

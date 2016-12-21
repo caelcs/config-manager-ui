@@ -6,11 +6,9 @@ class BuildConfigItemSelectable extends React.Component {
     	const {environment} = this.props;
 			return (
 				<div className="col-lg-6">
-					<div className="card">
-						<div className="container">
-							<div className="col-md-6">
+					<div className="card card-inverse card-primary">
+						<div className="card-block">
 								<h4 className="card-title">{environment}</h4>
-							</div>
 						</div>
 					</div>
 				</div>

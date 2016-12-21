@@ -23,7 +23,7 @@ class BuildConfigListSelect extends React.Component {
     render() {
     		const {buildConfigs} = this.props;
         return (
-					<div className="row">
+					<div className="row" id="build-config-items-selectable">
 						{buildConfigs.map((buildConfig, i) => {
 							return <BuildConfigItemSelectable key={i} environment={buildConfig.environment}/>;
 						})}

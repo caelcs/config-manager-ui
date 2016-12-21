@@ -18,7 +18,7 @@ class SideBar extends React.Component {
 						<Link activeClassName='linkActive' to='/buildconfigs/home'>Build Configs</Link>
 					</li>
 					<li>
-						<Link activeClassName='linkActive' to='/customsettings'>Custom Settings</Link>
+						<Link activeClassName='linkActive' to='/customsettings/home'>Custom Settings</Link>
 					</li>
 				</ul>
 			</div>
