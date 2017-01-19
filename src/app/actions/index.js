@@ -1,4 +1,5 @@
 import { getIsFetchingBuildConfigs } from '../reducers/build_config';
+import { isFetchingOneArticle } from '../reducers/articles';
 import axios from 'axios';
 
 const requestBuildConfigs = (filter) => ({
@@ -203,4 +204,28 @@ const pageTitle = (title) => ({
 
 export const setCurrentPageTitle = (title) => (dispatch) => {
 	dispatch(pageTitle(title))
+};
+
+const requestOneArticle = () => ({
+	type: 'IS_FETCHING_ARTICLE',
+	status: true
+});
+
+const receiveOneArticle = (oneArticle) => ({
+	type: 'ONE_ARTICLE',
+	title: oneArticle.title,
+	content: oneArticle.content
+});
+
+export const fetchArticlesAction = (filter) => (dispatch, getState) => {
+	if (isFetchingOneArticle(getState(), filter)) {
+		return Promise.resolve();
+	}
+
+	dispatch(requestOneArticle());
+	return axios.get('https://martinhelp-developer-edition.eu11.force.com/services/apexrest/api/article/test-art3').then(response => {
+		dispatch(receiveOneArticle(response.data));
+	}).catch(error => {
+		dispatch(apiFail('ONE_ARTICLE_FAILURE', error));
+	});
 };
