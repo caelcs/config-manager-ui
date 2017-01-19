@@ -9,14 +9,13 @@ export const mapObject = (object, callback) => {
 export const redirector = (state, dispatch) => {
 	const {apiErrorMessages} = state.errors.apiErrorMessages || {}
 
-	if (apiErrorMessages.length() == 0) {
+	if (apiErrorMessages.length() === 0) {
 		dispatch(emptyApiErrors);
 	}
 };
 
 export const validateNotEmptyOrUndefined = (value, fieldName, errorAction) => {
-	if (value === undefined || value === '') {
-		value = '';
+	if (typeof value === 'undefined'  || value === '') {
 		errorAction(fieldName + ' can not be null or empty.');
 		throw new Error(fieldName + ' can not be null or empty.');
 	}

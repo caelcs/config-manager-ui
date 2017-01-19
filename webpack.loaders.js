@@ -9,8 +9,17 @@ module.exports = [
 		exclude: /(node_modules|bower_components|public)/,
 		loader: 'babel',
 		query: {
-		  presets: ['es2015', 'react'],
+		  presets: ['es2015', 'react', 'stage-0'],
 		  plugins: ['transform-runtime', 'transform-decorators-legacy', 'transform-class-properties'],
+		}
+	},
+	{
+		test: /\.js$/,
+		include: [/src/, /nowtv-web-toolkit/],
+		loader: 'babel',
+		query: {
+			presets: ['react', 'es2015', 'stage-0'],
+			plugins: ['transform-class-properties']
 		}
 	},
 

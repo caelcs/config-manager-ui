@@ -13,22 +13,16 @@ class ContentContainer extends React.Component {
 	render() {
 		const {apiErrors} = this.props;
 		return (
-				<div id="page-content-wrapper">
-					<div className="container-fluid">
-						<div className="row">
-							<div className="col-lg-12">
-								{
-									apiErrors.map((value, i) => {
-										return (
-											<div className="alert alert-danger" role="alert" key={i}>
-												<strong>Error: </strong>{value}
-											</div>);
-									})
-								}
-								{this.props.children}
-							</div>
-						</div>
-					</div>
+				<div>
+					{
+						apiErrors.map((value, i) => {
+							return (
+								<div className="alert alert-danger" role="alert" key={i}>
+									<strong>Error: </strong>{value}
+								</div>);
+						})
+					}
+					{this.props.children}
 				</div>
 		);
 	}
