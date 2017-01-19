@@ -195,3 +195,12 @@ export const emptyApiErrors = () => ({
 export const emptyApiErrorsAction = () => (dispatch) => {
 	dispatch(emptyApiErrors())
 };
+
+const pageTitle = (title) => ({
+	type: 'SET_CURRENT_PAGE_TITLE',
+	title
+});
+
+export const setCurrentPageTitle = (title) => (dispatch) => {
+	dispatch(pageTitle(title))
+};
