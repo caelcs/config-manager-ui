@@ -29,7 +29,7 @@ class HelpCentre extends React.Component {
 							<h3 className="n-bold n-primary-title">{oneArticle.title}</h3>
 						</div>
 						<div className="n-container__item">
-							<div className="n-body-text n-light">{oneArticle.content}</div>
+							<div className="n-body-text n-light" dangerouslySetInnerHTML={{__html: oneArticle.content}} />
 						</div>
 					<div>
 						<div className="n-container__item">
