@@ -29,11 +29,11 @@ const errorList = () => {
 	};
 
 	const apiErrorMessages = (state = [], action) => {
-		if (action.type.search("_RESPONSE") != -1 ) {
+		if (action.type.search("_RESPONSE") !== -1 ) {
 			return [];
 		}
 
-		if (action.type.search("_FAILURE") != -1 ) {
+		if (action.type.search("_FAILURE") !== -1 ) {
 			return Object.assign([], state,
 				[action.error]
 			);

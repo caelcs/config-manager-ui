@@ -129,7 +129,7 @@ const attributeAdded = (result, type) => ({
 });
 
 export const addAttributeAction = (name, value) => (dispatch) => {
-	dispatch(attributeAdded({attributes: {[name]:value}}, 'ADD_CUSTOM_ATTRIBUTE_RESPONSE'))
+	dispatch(attributeAdded({attributes: {[name]: value}}, 'ADD_CUSTOM_ATTRIBUTE_RESPONSE'))
 };
 
 export const addDefaultAttributeAction = (name, value) => (dispatch) => {
@@ -154,7 +154,7 @@ export const clearBuildConfigNewAction = () => (dispatch) => {
 	dispatch(attributeEmpty());
 };
 
-const setErrorMessage= (errorMessage) => ({
+const setErrorMessage = (errorMessage) => ({
 	type: 'NEW_VALIDATION_ERROR',
 	errorMessage
 });
@@ -172,7 +172,7 @@ export const emptyErrorMessagesAction = () => (dispatch) => {
 };
 
 
-const setGeneralErrorMessage= (errorMessage) => ({
+const setGeneralErrorMessage = (errorMessage) => ({
 	type: 'GENERAL_ERROR_MESSAGE',
 	errorMessage
 });
