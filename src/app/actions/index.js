@@ -223,7 +223,7 @@ export const fetchArticlesAction = (filter) => (dispatch, getState) => {
 	}
 
 	dispatch(requestOneArticle());
-	return axios.get('https://martinhelp-developer-edition.eu11.force.com/services/apexrest/api/article/test-art3').then(response => {
+	return axios.get('https://martinhelp-developer-edition.eu11.force.com/services/apexrest/api/article/one/test-art3').then(response => {
 		dispatch(receiveOneArticle(response.data));
 	}).catch(error => {
 		dispatch(apiFail('ONE_ARTICLE_FAILURE', error));
