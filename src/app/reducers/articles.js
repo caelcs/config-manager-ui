@@ -10,9 +10,18 @@ const articles = () => {
 		}
 	};
 
-	const isFetchingOneArticle = (state = {status: false}, action) => {
+	const all = (state = {}, action) => {
 		switch (action.type) {
-			case 'IS_FETCHING_ARTICLE':
+			case 'ALL_ARTICLES':
+			return {articles: action};
+			default:
+				return state;
+		}
+	};
+
+	const isFetchingArticles = (state = {status: false}, action) => {
+		switch (action.type) {
+			case 'IS_FETCHING_ARTICLE', 'IS_FETCHING_ALL_ARTICLES':
 				return {status: action.status};
 			default:
 				return state;
@@ -21,17 +30,22 @@ const articles = () => {
 
 	return combineReducers({
 		one,
-		isFetchingOneArticle
+		all,
+		isFetchingArticles
 	});
 };
 
 export default articles();
 
 
-export const isFetchingOneArticle = (state) => {
-	return state.articles.isFetchingOneArticle.isFetchingArticle;
+export const isFetchingArticles = (state) => {
+	return state.articles.isFetchingArticles.isFetchingArticle;
 };
 
 export const getOneArticle = (state) => {
 	return state.articles.one;
+};
+
+export const getAllArticles = (state) => {
+	return state.articles.all;
 };

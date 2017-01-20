@@ -1,5 +1,5 @@
 import { getIsFetchingBuildConfigs } from '../reducers/build_config';
-import { isFetchingOneArticle } from '../reducers/articles';
+import { isFetchingArticles } from '../reducers/articles';
 import axios from 'axios';
 
 const requestBuildConfigs = (filter) => ({
@@ -219,16 +219,41 @@ const receiveOneArticle = (oneArticle) => ({
 
 export const fetchArticlesAction = (filter) => (dispatch, getState) => {
 
-	const artikleKey = filter;
+	const articleKey = filter;
 
-	if (isFetchingOneArticle(getState(), filter)) {
+	if (isFetchingArticles(getState(), filter)) {
 		return Promise.resolve();
 	}
 
 	dispatch(requestOneArticle());
-	return axios.get(`https://martinhelp-developer-edition.eu11.force.com/services/apexrest/api/article/one/${artikleKey}`).then(response => {
+	return axios.get(`https://martinhelp-developer-edition.eu11.force.com/services/apexrest/api/article/one/${articleKey}`).then(response => {
 		dispatch(receiveOneArticle(response.data));
 	}).catch(error => {
 		dispatch(apiFail('ONE_ARTICLE_FAILURE', error));
 	});
 };
+
+const requestAllArticles = () => ({
+	type: 'IS_FETCHING_ALL_ARTICLES',
+	status: true
+});
+
+const receiveAllArticles = (articles) => ({
+	type: 'ALL_ARTICLES',
+	articles: articles
+});
+
+export const fetchAllArticlesAction = (filter) => (dispatch, getState) => {
+	if (isFetchingArticles(getState(), filter)) {
+		return Promise.resolve();
+	}
+
+	dispatch(requestAllArticles());
+	return axios.get(`https://martinhelp-developer-edition.eu11.force.com/services/apexrest/api/articles/all`).then(response => {
+		dispatch(receiveAllArticles(response.data));
+	}).catch(error => {
+		dispatch(apiFail('ALL_ARTICLE_FAILURE', error));
+	});
+};
+
+
