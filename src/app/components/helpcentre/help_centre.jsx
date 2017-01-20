@@ -23,7 +23,6 @@ class HelpCentre extends React.Component {
 		const {oneArticle} = this.props;
 		return (
 			<div>
-				<br />
 				<div className="n-container">
 						<div className="n-container__item">
 							<h3 className="n-bold n-primary-title">{oneArticle.title}</h3>
