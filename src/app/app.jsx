@@ -19,7 +19,7 @@ class App extends React.Component {
 					<Route path='/buildconfigs/clone' component={BuildConfigClone} />
 					<Route path='/buildconfigs/add' component={BuildConfigAdd} />
 					<Route path='/buildconfigs/edit' component={BuildConfigEdit} />
-					<Route path='/helpcentre' component={HelpCentre} />
+					<Route path='/helpcentre/:articleKey' component={HelpCentre} />
 				</Route>
 			</Router>
 		);

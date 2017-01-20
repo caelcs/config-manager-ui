@@ -15,8 +15,12 @@ class HelpCentre extends React.Component {
 
 	componentDidMount() {
 		const {setCurrentPageTitle,  fetchArticlesAction} = this.props;
+
+		const articleKey = this.props.params.articleKey;
+
 		setCurrentPageTitle('Help Centre');
-		fetchArticlesAction();
+
+		fetchArticlesAction(articleKey);
 	}
 
 	render() {
