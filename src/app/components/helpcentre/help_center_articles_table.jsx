@@ -1,12 +1,12 @@
 import React from 'react';
 import * as actions from '../../actions/index';
 import {connect} from 'react-redux';
-import {getAllArticles} from '../../reducers/articles';
+import {getAllArticlesKeyesAndTitles} from '../../reducers/articles';
 import {withRouter, Link} from 'react-router';
 
 const mapStateToProps = (state) => {
 	return {
-		articles: getAllArticles(state)
+		articles: getAllArticlesKeyesAndTitles(state)
 	};
 };
 
@@ -14,8 +14,8 @@ class ArticlesTable extends React.Component {
 
 	componentDidMount() {
 
-		const {fetchAllArticlesAction} = this.props;
-		fetchAllArticlesAction();
+		const {fetchAllArticlesKeyesAndTitlesAction} = this.props;
+		fetchAllArticlesKeyesAndTitlesAction();
 
 	}
 
@@ -27,11 +27,11 @@ class ArticlesTable extends React.Component {
 
 		const articlesArr = articles ? articles.articles : [];
 
-		const articlesTrElements = articlesArr.map((art, idx) => {
+		const articlesTrElements = articlesArr.map((art) => {
 			const linkAttr = `${helpCentreBaseLink}/${art.id}`;
 			const linkToDisplay = `${helpCentreBaseLink}/${art.title}`;
 			return (
-				<tr key={idx}>
+				<tr key={art.id}>
 					<th>{art.title}</th>
 					<th><Link activeClassName='linkActive' to={linkAttr} >{linkToDisplay}</Link></th>
 				</tr>

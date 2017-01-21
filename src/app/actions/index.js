@@ -233,24 +233,25 @@ export const fetchArticlesAction = (filter) => (dispatch, getState) => {
 	});
 };
 
-const requestAllArticles = () => ({
-	type: 'IS_FETCHING_ALL_ARTICLES',
+const requestAllArticlesKeyesAndTitles = () => ({
+	type: 'IS_FETCHING_ALL_ARTICLES_KEYES_AND_TITLES',
 	status: true
 });
 
-const receiveAllArticles = (articles) => ({
-	type: 'ALL_ARTICLES',
+const receiveAllArticlesKeyesAndTitles = (articles) => ({
+	type: 'ALL_ARTICLES_KEYES_AND_TITLES',
 	articles: articles
 });
 
-export const fetchAllArticlesAction = (filter) => (dispatch, getState) => {
+export const fetchAllArticlesKeyesAndTitlesAction = (filter) => (dispatch, getState) => {
 	if (isFetchingArticles(getState(), filter)) {
 		return Promise.resolve();
 	}
 
-	dispatch(requestAllArticles());
-	return axios.get(`https://martinhelp-developer-edition.eu11.force.com/services/apexrest/api/articles/all`).then(response => {
-		dispatch(receiveAllArticles(response.data));
+	dispatch(requestAllArticlesKeyesAndTitles());
+	return axios.get(`https://martinhelp-developer-edition.eu11.force.com/services/apexrest/api/articles/all/keyes-and-titles`)
+		.then(response => {
+		dispatch(receiveAllArticlesKeyesAndTitles(response.data));
 	}).catch(error => {
 		dispatch(apiFail('ALL_ARTICLE_FAILURE', error));
 	});

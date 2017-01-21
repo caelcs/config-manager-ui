@@ -10,9 +10,9 @@ const articles = () => {
 		}
 	};
 
-	const all = (state = {}, action) => {
+	const allKeyesAndTitles = (state = {}, action) => {
 		switch (action.type) {
-			case 'ALL_ARTICLES':
+			case 'ALL_ARTICLES_KEYES_AND_TITLES':
 			return {articles: action};
 			default:
 				return state;
@@ -23,7 +23,7 @@ const articles = () => {
 		switch (action.type) {
 			case 'IS_FETCHING_ARTICLE':
 				return {status: action.status};
-			case 'IS_FETCHING_ALL_ARTICLES':
+			case 'IS_FETCHING_ALL_ARTICLES_KEYES_AND_TITLES':
 				return {status: action.status};
 			default:
 				return state;
@@ -32,7 +32,7 @@ const articles = () => {
 
 	return combineReducers({
 		one,
-		all,
+		allKeyesAndTitles,
 		isFetchingArticles
 	});
 };
@@ -48,6 +48,6 @@ export const getOneArticle = (state) => {
 	return state.articles.one;
 };
 
-export const getAllArticles = (state) => {
-	return state.articles.all;
+export const getAllArticlesKeyesAndTitles = (state) => {
+	return state.articles.allKeyesAndTitles;
 };

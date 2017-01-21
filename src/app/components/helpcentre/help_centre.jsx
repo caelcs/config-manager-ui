@@ -2,20 +2,12 @@ import React from 'react';
 import * as actions from '../../actions/index';
 import {connect} from 'react-redux';
 import {withRouter, Link} from 'react-router';
-import {getAllArticles} from '../../reducers/articles';
 import ArticlesTable from './help_center_articles_table';
-
-const mapStateToProps = (state) => {
-	return {
-		articles: getAllArticles(state)
-	};
-};
 
 class HelpCentre extends React.Component {
 	componentDidMount() {
-		const {setCurrentPageTitle,  fetchAllArticlesAction} = this.props;
+		const {setCurrentPageTitle} = this.props;
 		setCurrentPageTitle('Help Centre');
-		fetchAllArticlesAction();
 	}
 
 	render() {
@@ -37,6 +29,6 @@ class HelpCentre extends React.Component {
 	}
 }
 
-HelpCentre = withRouter(connect(mapStateToProps, actions)(HelpCentre));
+HelpCentre = withRouter(connect(null, actions)(HelpCentre));
 
 export default HelpCentre;
