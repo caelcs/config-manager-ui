@@ -39,3 +39,10 @@ export const validateMandatoryFields = (buildConfigNew, setGeneralErrorMessageAc
 
 	validateNotEmptyOrUndefined(buildConfigNew.password, 'Password', setGeneralErrorMessageAction);
 };
+
+export const prepareArticleHtmlContentForReactComponent = (htmlContent) => {
+
+	const reactifiedHtmlContent = htmlContent ? htmlContent.replace(/class="/g, 'className="') : '';
+
+	return reactifiedHtmlContent;
+};
