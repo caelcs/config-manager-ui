@@ -30,14 +30,14 @@ class ArticlesTable extends React.Component {
 			return (
 				<tr>
 					<th>{art.title}</th>
-					<th><Link activeClassName='linkActive' to={link} >{art.title}</Link></th>
+					<th><Link activeClassName='linkActive' to={link} >/{art.title}</Link></th>
 				</tr>
 			)
 		});
 
 		return (
 			<table className="table table-collapse">
-				<thead>
+				<thead className="thead-inverse">
 				<tr>
 					<th>Article Name</th>
 					<th>Article URL</th>
