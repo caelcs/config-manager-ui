@@ -21,7 +21,9 @@ const articles = () => {
 
 	const isFetchingArticles = (state = {status: false}, action) => {
 		switch (action.type) {
-			case 'IS_FETCHING_ARTICLE', 'IS_FETCHING_ALL_ARTICLES':
+			case 'IS_FETCHING_ARTICLE':
+				return {status: action.status};
+			case 'IS_FETCHING_ALL_ARTICLES':
 				return {status: action.status};
 			default:
 				return state;

@@ -3,7 +3,7 @@ import * as actions from '../../actions/index';
 import {connect} from 'react-redux';
 import {withRouter, Link} from 'react-router';
 import {getAllArticles} from '../../reducers/articles';
-import Button from '@nowtv/nowtv-web-toolkit/src/react/components/Button/Button.react';
+import ArticlesTable from './help_center_articles_table';
 
 const mapStateToProps = (state) => {
 	return {
@@ -15,11 +15,11 @@ class HelpCentre extends React.Component {
 	componentDidMount() {
 		const {setCurrentPageTitle,  fetchAllArticlesAction} = this.props;
 		setCurrentPageTitle('Help Centre');
-		fetchAllArticlesAction();	
+		fetchAllArticlesAction();
 	}
 
 	render() {
-		const {articles} = this.props;
+
 		return (
 			<div>
 				<div className="n-container">
@@ -28,20 +28,7 @@ class HelpCentre extends React.Component {
 					</div>
 					<div className="n-container__item">
 						<div className="n-body-text n-light">
-							<table className="table table-collapse">
-						      <thead>
-							        <tr>
-							        	<th>Article Name</th>
-							        	<th>Article URL</th>
-							        </tr>
-						      </thead>
-						      <tbody>
-						      	<tr>
-						      		<th>Test article</th>
-						      		<th><Link activeClassName='linkActive' to='/helpcentre/test-art3'>test-art3</Link></th>
-						      	</tr>
-						      </tbody>
-						    </table>
+							<ArticlesTable  />
 						</div>
 					</div>
 				</div>
