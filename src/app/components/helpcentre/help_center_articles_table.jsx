@@ -21,16 +21,19 @@ class ArticlesTable extends React.Component {
 
 	render() {
 
+		const helpCentreBaseLink = '/helpcentre';
+
 		const {articles} = this.props.articles;
 
 		const articlesArr = articles ? articles.articles : [];
 
-		const articlesTrElements = articlesArr.map((art) => {
-			var link = `/helpcentre/${art.id}`;
+		const articlesTrElements = articlesArr.map((art, idx) => {
+			const linkAttr = `${helpCentreBaseLink}/${art.id}`;
+			const linkToDisplay = `${helpCentreBaseLink}/${art.title}`;
 			return (
-				<tr>
+				<tr key={idx}>
 					<th>{art.title}</th>
-					<th><Link activeClassName='linkActive' to={link} >/{art.title}</Link></th>
+					<th><Link activeClassName='linkActive' to={linkAttr} >{linkToDisplay}</Link></th>
 				</tr>
 			)
 		});

@@ -47,7 +47,7 @@ class HelpCentreArticles extends React.Component {
 						<div className="n-container__item">
 							<p className="n-bold">For more help on this topic
 								Contact Us</p>
-							<Button href="#" disabled={false}>
+							<Button href="#/helpcentre" disabled={false}>
 								Contact Us
 							</Button>
 						</div>
