@@ -15,7 +15,7 @@ class App extends React.Component {
 		return (
 			<Router history={hashHistory}>
 				<Route path='/' component={MainLayout}>
-					<IndexRoute component={BuildConfigContainer}/>
+					<IndexRoute component={HelpCentre}/>
 					<Route path='/buildconfigs/home' component={BuildConfigContainer} />
 					<Route path='/buildconfigs/clone' component={BuildConfigClone} />
 					<Route path='/buildconfigs/add' component={BuildConfigAdd} />
