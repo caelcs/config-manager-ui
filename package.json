@@ -16,7 +16,7 @@
   "license": "MIT",
   "homepage": "https://github.com/caelwinner",
   "dependencies": {
-    "@nowtv/nowtv-web-navigation": "6.6.0",
+    "@nowtv/nowtv-web-navigation": "7.3.1",
     "@nowtv/nowtv-web-toolkit": "^1.2.2",
     "axios": "^0.15.2",
     "babel-polyfill": "^6.16.0",

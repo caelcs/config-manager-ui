@@ -115,7 +115,6 @@ const deleteBuildConfigResponse = (env) => ({
 
 export const deleteBuildConfigAction = (env, postAction) => (dispatch, getState) => {
 	return axios.delete(getState().apiConfig.apiUrl + '/buildconfigs/' + env).then(response => {
-		console.log(response);
 		dispatch(deleteBuildConfigResponse(env));
 		postAction('all');
 	}).catch(error => {

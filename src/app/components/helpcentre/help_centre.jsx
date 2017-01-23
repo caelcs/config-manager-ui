@@ -16,7 +16,7 @@ class HelpCentre extends React.Component {
 			<div>
 				<div className="n-container">
 					<div className="n-container__item">
-						<h3 className="n-bold n-primary-title">Homepage</h3>
+						<h3 className="n-bold n-primary-title">Help Centre | React Demo</h3>
 					</div>
 					<div className="n-container__item">
 						<div className="n-body-text n-light">
