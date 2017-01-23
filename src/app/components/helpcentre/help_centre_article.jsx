@@ -29,13 +29,13 @@ class HelpCentreArticles extends React.Component {
 		const htmlContent = prepareArticleHtmlContentForReactComponent(oneArticle.content);
 		return (
 			<div>
-				<div className="n-container">
+				<div className="n-container container-fluid">
 						<div className="n-container__item">
 							<h3 className="n-bold n-primary-title">{oneArticle.title}</h3>
 						</div>
-						<div className="n-container__item">
-							<div className="n-body-text n-light" dangerouslySetInnerHTML={{__html: htmlContent}} />
-						</div>
+							<div className="n-container__item">
+								<div className="n-body-text n-light" dangerouslySetInnerHTML={{__html: htmlContent}} />
+							</div>
 					<div>
 						<div className="n-container__item">
 							<p className="n-bold">Did you find this helpful?</p>
