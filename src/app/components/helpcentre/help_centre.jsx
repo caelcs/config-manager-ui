@@ -3,6 +3,7 @@ import * as actions from '../../actions/index';
 import {connect} from 'react-redux';
 import {withRouter, Link} from 'react-router';
 import ArticlesTable from './help_center_articles_table';
+import HelpCentreTitle from './help_centre_title';
 
 class HelpCentre extends React.Component {
 	componentDidMount() {
@@ -15,9 +16,7 @@ class HelpCentre extends React.Component {
 		return (
 			<div>
 				<div className="n-container">
-					<div className="n-container__item">
-						<h3 className="n-bold n-primary-title">Help Centre | React Demo</h3>
-					</div>
+					<HelpCentreTitle />
 					<div className="n-container__item">
 						<div className="n-body-text n-light">
 							<ArticlesTable  />
