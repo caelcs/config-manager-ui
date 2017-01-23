@@ -16,6 +16,8 @@ class BuildConfigAdd extends React.Component {
 
 	componentDidMount() {
 		this.reset();
+		const {setCurrentPageTitle} = this.props;
+		setCurrentPageTitle('Add Build Config');
 	}
 
 	reset = () => {
@@ -45,7 +47,6 @@ class BuildConfigAdd extends React.Component {
 	render() {
 		return (
 			<div>
-				<div className="page-header"><h1>Adding new build config</h1></div>
 				<div id="addBuildConfigContainer" className="container-fluid">
 					<div className="row">
 							<div id="addBuildConfigform">

@@ -27,7 +27,7 @@ const oneBuildConfig = () => {
 			case 'ADD_DEFAULT_ATTRIBUTE_RESPONSE':
 				return Object.assign({}, state, action.attributes);
 			case 'ADD_CUSTOM_ATTRIBUTE_RESPONSE':
-				let attributesResult = {attributes : Object.assign({}, state.attributes, action.attributes.attributes)};
+				let attributesResult = {attributes: Object.assign({}, state.attributes, action.attributes.attributes)};
 				return Object.assign({}, state, attributesResult);
 			case 'LOAD_BUILD_CONFIG_FOR_CLONE_RESPONSE':
 				let loadBuildConfigForCloneResult = ({environment: '', username: action.response.attributes.username, password: action.response.attributes.password, token: action.response.attributes.token, attributes: action.response.attributes});

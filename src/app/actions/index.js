@@ -1,4 +1,5 @@
 import { getIsFetchingBuildConfigs } from '../reducers/build_config';
+import { isFetchingArticles } from '../reducers/articles';
 import axios from 'axios';
 
 const requestBuildConfigs = (filter) => ({
@@ -114,6 +115,7 @@ const deleteBuildConfigResponse = (env) => ({
 
 export const deleteBuildConfigAction = (env, postAction) => (dispatch, getState) => {
 	return axios.delete(getState().apiConfig.apiUrl + '/buildconfigs/' + env).then(response => {
+		console.log(response);
 		dispatch(deleteBuildConfigResponse(env));
 		postAction('all');
 	}).catch(error => {
@@ -127,7 +129,7 @@ const attributeAdded = (result, type) => ({
 });
 
 export const addAttributeAction = (name, value) => (dispatch) => {
-	dispatch(attributeAdded({attributes: {[name]:value}}, 'ADD_CUSTOM_ATTRIBUTE_RESPONSE'))
+	dispatch(attributeAdded({attributes: {[name]: value}}, 'ADD_CUSTOM_ATTRIBUTE_RESPONSE'))
 };
 
 export const addDefaultAttributeAction = (name, value) => (dispatch) => {
@@ -152,7 +154,7 @@ export const clearBuildConfigNewAction = () => (dispatch) => {
 	dispatch(attributeEmpty());
 };
 
-const setErrorMessage= (errorMessage) => ({
+const setErrorMessage = (errorMessage) => ({
 	type: 'NEW_VALIDATION_ERROR',
 	errorMessage
 });
@@ -170,7 +172,7 @@ export const emptyErrorMessagesAction = () => (dispatch) => {
 };
 
 
-const setGeneralErrorMessage= (errorMessage) => ({
+const setGeneralErrorMessage = (errorMessage) => ({
 	type: 'GENERAL_ERROR_MESSAGE',
 	errorMessage
 });
@@ -194,3 +196,65 @@ export const emptyApiErrors = () => ({
 export const emptyApiErrorsAction = () => (dispatch) => {
 	dispatch(emptyApiErrors())
 };
+
+const pageTitle = (title) => ({
+	type: 'SET_CURRENT_PAGE_TITLE',
+	title
+});
+
+export const setCurrentPageTitle = (title) => (dispatch) => {
+	dispatch(pageTitle(title))
+};
+
+const requestOneArticle = () => ({
+	type: 'IS_FETCHING_ARTICLE',
+	status: true
+});
+
+const receiveOneArticle = (oneArticle) => ({
+	type: 'ONE_ARTICLE',
+	title: oneArticle.title,
+	content: oneArticle.content
+});
+
+export const fetchArticlesAction = (filter) => (dispatch, getState) => {
+
+	const articleKey = filter;
+
+	if (isFetchingArticles(getState(), filter)) {
+		return Promise.resolve();
+	}
+
+	dispatch(requestOneArticle());
+	return axios.get(`https://martinhelp-developer-edition.eu11.force.com/services/apexrest/api/article/one/${articleKey}`).then(response => {
+		dispatch(receiveOneArticle(response.data));
+	}).catch(error => {
+		dispatch(apiFail('ONE_ARTICLE_FAILURE', error));
+	});
+};
+
+const requestAllArticlesKeyesAndTitles = () => ({
+	type: 'IS_FETCHING_ALL_ARTICLES_KEYES_AND_TITLES',
+	status: true
+});
+
+const receiveAllArticlesKeyesAndTitles = (articles) => ({
+	type: 'ALL_ARTICLES_KEYES_AND_TITLES',
+	articles: articles
+});
+
+export const fetchAllArticlesKeyesAndTitlesAction = (filter) => (dispatch, getState) => {
+	if (isFetchingArticles(getState(), filter)) {
+		return Promise.resolve();
+	}
+
+	dispatch(requestAllArticlesKeyesAndTitles());
+	return axios.get(`https://martinhelp-developer-edition.eu11.force.com/services/apexrest/api/articles/all/keyes-and-titles`)
+		.then(response => {
+		dispatch(receiveAllArticlesKeyesAndTitles(response.data));
+	}).catch(error => {
+		dispatch(apiFail('ALL_ARTICLE_FAILURE', error));
+	});
+};
+
+

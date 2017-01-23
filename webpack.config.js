@@ -51,7 +51,14 @@ module.exports = {
 		extensions: ['', '.js', '.jsx']
 	},
 	module: {
-		loaders
+		loaders,
+		preLoaders: [
+			{
+				test: /(\.js$)/,
+				include: [/src/, /nowtv-web-toolkit/],
+				loader: 'eslint-loader'
+			}
+		]
 	},
 	devServer: {
 		contentBase: "./public",

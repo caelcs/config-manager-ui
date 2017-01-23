@@ -20,6 +20,8 @@ class BuildConfigEdit extends React.Component {
 	componentDidMount() {
 		this.reset();
 		this.fetchBuildConfig();
+		const {setCurrentPageTitle} = this.props;
+		setCurrentPageTitle('Editing environment: ' + this.props.env);
 	}
 
 	reset = () => {
@@ -57,9 +59,6 @@ class BuildConfigEdit extends React.Component {
 		}
 		return (
 			<div>
-				<div className="page-header">
-					<h1>Editing environment: {env}</h1>
-				</div>
 				<div id="editBuildConfigContainer" className="container-fluid">
 					<div className="row">
 							<div id="editBuildConfigform">
