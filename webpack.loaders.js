@@ -10,7 +10,7 @@ module.exports = [
 		loader: 'babel',
 		query: {
 		  presets: ['es2015', 'react', 'stage-0'],
-		  plugins: ['transform-runtime', 'transform-decorators-legacy', 'transform-class-properties'],
+		  plugins: ['transform-runtime', 'transform-decorators-legacy', 'transform-class-properties', "transform-object-rest-spread"],
 		}
 	},
 	{

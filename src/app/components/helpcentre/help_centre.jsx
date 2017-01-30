@@ -1,7 +1,6 @@
 import React from 'react';
 import * as actions from '../../actions/index';
 import {connect} from 'react-redux';
-import {withRouter, Link} from 'react-router';
 import ArticlesTable from './help_center_articles_table';
 import HelpCentreTitle from './help_centre_title';
 
@@ -28,6 +27,5 @@ class HelpCentre extends React.Component {
 	}
 }
 
-HelpCentre = withRouter(connect(null, actions)(HelpCentre));
+export default connect(null, actions)(HelpCentre);
 
-export default HelpCentre;

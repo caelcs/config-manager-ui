@@ -1,6 +1,5 @@
 import React from 'react';
 import ContentContainer from './content_container';
-import SideBar from './side_bar';
 import NowTVWebNavigation from '@nowtv/nowtv-web-navigation';
 import Footer from '@nowtv/nowtv-web-toolkit/src/react/components/Footer/Footer.react';
 

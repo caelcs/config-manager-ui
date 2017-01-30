@@ -1,5 +1,4 @@
 import React from 'react';
-import {getApiErrorMsg} from '../reducers/error_messages';
 import {currentPageTitle} from '../reducers/pages';
 import * as actions from '../actions';
 import {connect} from 'react-redux';
@@ -7,14 +6,13 @@ import Layout from '@nowtv/nowtv-web-toolkit/src/react/components/Layout/Layout.
 
 const mapStateToProps = (state) => {
 	return ({
-		apiErrors: getApiErrorMsg(state),
 		currentPageTitle: currentPageTitle(state)
 	});
 };
 
 class ContentContainer extends React.Component {
 	render() {
-		const {apiErrors, currentPageTitle} = this.props;
+		const {currentPageTitle} = this.props;
 		return (
 		<div>
 			<Layout display="rows" colour="blue" >
