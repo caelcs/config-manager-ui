@@ -41,11 +41,15 @@ export const fetchArticlesAction = (filter) => (dispatch, getState) => {
 	}
 
 	dispatch(requestOneArticle());
-	return axios.get(`https://martinhelp-developer-edition.eu11.force.com/services/apexrest/api/article/one/${articleKey}`).then(response => {
-		dispatch(receiveOneArticle(response.data));
-	}).catch(error => {
-		dispatch(apiFail('ONE_ARTICLE_FAILURE', error));
-	});
+
+	Help_ReactHelpcentreCtrl.getOneArticleBy(articleKey, (article, event) => {
+
+		if(event.status == true){
+			dispatch(receiveOneArticle(article));
+		} else {
+			dispatch(apiFail('ONE_ARTICLE_FAILURE', event.message));
+		}
+	},{escape: false});
 };
 
 const requestAllArticlesKeyesAndTitles = () => ({
