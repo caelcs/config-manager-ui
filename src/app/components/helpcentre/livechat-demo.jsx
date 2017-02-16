@@ -43,7 +43,7 @@ class LivechatDemo extends Component {
 							</div>
 
 							<div className="sidebar-card-footer">
-								<button onClick={() =>  LiveChatFacade.startChat() } id="livechat-button-online" className="btn btn-block btn-blue" >
+								<button onClick={() =>  LiveChatFacade.startChat() } id="livechat-button-online" className="btn btn-block btn-blue" style={{display: 'none'}}>
 									Help_LiveAgentComponent_ChatButtomLabel
 								</button>
 							</div>
