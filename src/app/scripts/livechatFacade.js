@@ -12,17 +12,15 @@ export const LiveChatFacade = (() => {
 	}
 
 	const initSFLiveagent = () => {
-
-		liveagent.init("https://d.la1-c1cs-par.salesforceliveagent.com/chat", "572G00000004EEz", "00D9E000000Cw94");
-
+		liveagent.init('https://d.la1-c2-par.salesforceliveagent.com/chat', '5720Y0000008PYE', '00D0Y000000ZMxP');
 	};
 
 	const showLiveChatBtnWhenOnline = () => {
-		liveagent.showWhenOnline("573G00000004ERh", document.getElementById("livechat-button-online"));
+		liveagent.showWhenOnline("5730Y0000008Ph4", document.getElementById("livechat-button-online"));
 	};
 
 	const startChat = () => {
-		liveagent.startChat("573G00000004ERh");
+		liveagent.startChat("5730Y0000008Ph4");
 	};
 
 	return {
