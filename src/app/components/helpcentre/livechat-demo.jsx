@@ -1,6 +1,22 @@
 import React, {Component} from 'react';
+import {LiveChatFacade} from '../../scripts/livechatFacade';
 
 class LivechatDemo extends Component {
+
+	componentWillMount() {
+		const deploymentJsScript = document.createElement("script");
+
+		deploymentJsScript.src = "https://d.la1-c1cs-par.salesforceliveagent.com/content/g/js/38.0/deployment.js";
+		deploymentJsScript.async = true;
+
+		document.body.appendChild(deploymentJsScript);
+	}
+
+	componentDidMount() {
+		LiveChatFacade.test();
+		LiveChatFacade.initSFLiveagent();
+		LiveChatFacade.showLiveChatBtnWhenOnline();
+	}
 
 	render() {
 		return (
@@ -27,14 +43,13 @@ class LivechatDemo extends Component {
 							</div>
 
 							<div className="sidebar-card-footer">
-								<button id="livechat-button-online" className="btn btn-block btn-blue" style={{display: 'none'}}>
+								<button onClick={() =>  LiveChatFacade.startChat() } id="livechat-button-online" className="btn btn-block btn-blue" >
 									Help_LiveAgentComponent_ChatButtomLabel
 								</button>
 							</div>
 						</div>
 
 					</div>
-					<script src="https://d.la1-c1cs-par.salesforceliveagent.com/content/g/js/38.0/deployment.js" type="text/javascript"></script>
 				</div>
 			</div>
 		);
