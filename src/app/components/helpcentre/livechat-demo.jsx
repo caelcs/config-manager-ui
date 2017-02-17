@@ -1,21 +1,21 @@
 import React, {Component} from 'react';
 import {LiveChatFacade} from '../../scripts/livechatFacade';
+import {liveChatConfig} from '../../scripts/livechatConfig';
 
 class LivechatDemo extends Component {
 
 	componentWillMount() {
 		const deploymentJsScript = document.createElement("script");
 
-		deploymentJsScript.src = "https://d.la1-c1cs-par.salesforceliveagent.com/content/g/js/38.0/deployment.js";
+		deploymentJsScript.src = liveChatConfig.deplymentJsSrcLink;
 		deploymentJsScript.async = true;
 
 		document.body.appendChild(deploymentJsScript);
 	}
 
 	componentDidMount() {
-		LiveChatFacade.test();
 		LiveChatFacade.initSFLiveagent();
-		LiveChatFacade.showLiveChatBtnWhenOnline();
+		LiveChatFacade.showLiveChatBtnWhenOnline("livechat-button-online");
 	}
 
 	render() {

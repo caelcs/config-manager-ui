@@ -1,30 +1,37 @@
+import {liveChatConfig} from './livechatConfig';
 
 export const LiveChatFacade = (() => {
 
-	const test = () => {
-		console.log('----------------------------------------');
-		console.log('----------------------------------------');
-		console.log('TEST');
-		console.log('TEST');
-		console.log('TEST');
-		console.log('----------------------------------------');
-		console.log('----------------------------------------');
-	}
-
 	const initSFLiveagent = () => {
-		liveagent.init('https://d.la1-c2-par.salesforceliveagent.com/chat', '5720Y0000008PYE', '00D0Y000000ZMxP');
+		if (liveagent === undefined) {
+			return;
+		}
+		try {
+			liveagent.init(liveChatConfig.livechatEndpoint, liveChatConfig.deploymentId, liveChatConfig.orgId);
+		} catch (e) {
+			console.log('liveagent may not be defined');
+		}
 	};
 
-	const showLiveChatBtnWhenOnline = () => {
-		liveagent.showWhenOnline("5730Y0000008Ph4", document.getElementById("livechat-button-online"));
+	const showLiveChatBtnWhenOnline = (livechatButtonID) => {
+		if (liveagent === undefined) {
+			return;
+		}
+		try {
+			liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatButtonID));
+		} catch (e) {
+			console.log('liveagent may not be defined');
+		}
 	};
 
 	const startChat = () => {
-		liveagent.startChat("5730Y0000008Ph4");
+		if (liveagent === undefined) {
+			return;
+		}
+		liveagent.startChat(liveChatConfig.chatButtonId);
 	};
 
 	return {
-		test: test,
 		initSFLiveagent: initSFLiveagent,
 		showLiveChatBtnWhenOnline: showLiveChatBtnWhenOnline,
 		startChat: startChat
