@@ -5,12 +5,7 @@ import {liveChatConfig} from '../../scripts/livechatConfig';
 class LivechatDemo extends Component {
 
 	componentWillMount() {
-		const deploymentJsScript = document.createElement("script");
-
-		deploymentJsScript.src = liveChatConfig.deplymentJsSrcLink;
-		deploymentJsScript.async = true;
-
-		document.body.appendChild(deploymentJsScript);
+		LiveChatFacade.initModule(window, document);
 	}
 
 	componentDidMount() {
@@ -31,7 +26,7 @@ class LivechatDemo extends Component {
 								Help_LiveAgentComponent_Title
 							</div>
 
-							<div className="sidebar-card-content" id="lifeAgentSideCardOnline" style={{display: 'none'}} >
+							<div className="sidebar-card-content" id="lifeAgentSideCardOnline" style={{display: 'none'}}>
 								<p id="liveagent-description">
 									liveAgentAvailableDescription
 								</p>
@@ -43,7 +38,8 @@ class LivechatDemo extends Component {
 							</div>
 
 							<div className="sidebar-card-footer">
-								<button onClick={() =>  LiveChatFacade.startChat() } id="livechat-button-online" className="btn btn-block btn-blue" style={{display: 'none'}}>
+								<button onClick={() => LiveChatFacade.startChat() } id="livechat-button-online"
+												className="btn btn-block btn-blue" style={{display: 'none'}}>
 									Help_LiveAgentComponent_ChatButtomLabel
 								</button>
 							</div>
@@ -51,6 +47,7 @@ class LivechatDemo extends Component {
 
 					</div>
 				</div>
+				<hr />
 			</div>
 		);
 	}

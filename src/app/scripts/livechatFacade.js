@@ -2,36 +2,47 @@ import {liveChatConfig} from './livechatConfig';
 
 export const LiveChatFacade = (() => {
 
+	var browserWindow = {};
+
+	const _addDeploymentJSToComponent = (doc) => {
+		const deploymentJsScript = doc.createElement("script");
+		deploymentJsScript.src = liveChatConfig.deplymentJsSrcLink;
+		doc.body.appendChild(deploymentJsScript);
+	};
+
+	const initModule = (browserWindowParam, domDocument) => {
+		browserWindow = browserWindowParam;
+		_addDeploymentJSToComponent(domDocument);
+	};
+
 	const initSFLiveagent = () => {
-		if (liveagent === undefined) {
+		if (!browserWindow.liveAgentDeployment) {
 			return;
 		}
-		try {
-			liveagent.init(liveChatConfig.livechatEndpoint, liveChatConfig.deploymentId, liveChatConfig.orgId);
-		} catch (e) {
-			console.log('liveagent may not be defined');
+		console.log('liveAgentDeployment is true');
+		if(browserWindow.liveagent.getSid()){
+			browserWindow.liveagent.disconnect();
 		}
+		browserWindow.liveagent.init(liveChatConfig.livechatEndpoint, liveChatConfig.deploymentId, liveChatConfig.orgId);
 	};
 
 	const showLiveChatBtnWhenOnline = (livechatButtonID) => {
-		if (liveagent === undefined) {
+		if (!browserWindow.liveAgentDeployment) {
 			return;
 		}
-		try {
-			liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatButtonID));
-		} catch (e) {
-			console.log('liveagent may not be defined');
-		}
+		browserWindow.liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatButtonID));
+
 	};
 
 	const startChat = () => {
-		if (liveagent === undefined) {
+		if (!browserWindow.liveAgentDeployment) {
 			return;
 		}
-		liveagent.startChat(liveChatConfig.chatButtonId);
+		browserWindow.liveagent.startChat(liveChatConfig.chatButtonId);
 	};
 
 	return {
+		initModule: initModule,
 		initSFLiveagent: initSFLiveagent,
 		showLiveChatBtnWhenOnline: showLiveChatBtnWhenOnline,
 		startChat: startChat
