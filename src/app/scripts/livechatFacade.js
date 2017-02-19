@@ -1,36 +1,88 @@
 import {liveChatConfig} from './livechatConfig';
+import jQuery from 'jquery';
 
 export const LiveChatFacade = (() => {
 
 	var browserWindow = {};
+	var livechatDOMButtonID = '';
+	var enableLiveChatLogging = false;
 
-	const _addDeploymentJSToComponent = (doc) => {
-		const deploymentJsScript = doc.createElement("script");
-		deploymentJsScript.src = liveChatConfig.deplymentJsSrcLink;
-		doc.body.appendChild(deploymentJsScript);
+	const _loadScript = (url, callback) => {
+		jQuery.ajax({
+			url: url,
+			dataType: 'script',
+			success: callback,
+			async: true
+		});
 	};
 
-	const initModule = (browserWindowParam, domDocument) => {
-		browserWindow = browserWindowParam;
-		_addDeploymentJSToComponent(domDocument);
+
+	const _clearLiveAgent = () => {
+		if (browserWindow.liveagent || browserWindow.liveAgentDeployment) {
+			delete browserWindow.liveagent;
+			delete browserWindow.liveAgentDeployment;
+		}
 	};
 
-	const initSFLiveagent = () => {
-		if (!browserWindow.liveAgentDeployment) {
-			return;
-		}
-		console.log('liveAgentDeployment is true');
-		if(browserWindow.liveagent.getSid()){
-			browserWindow.liveagent.disconnect();
-		}
+	const _initChat = () => {
+
 		browserWindow.liveagent.init(liveChatConfig.livechatEndpoint, liveChatConfig.deploymentId, liveChatConfig.orgId);
+		if(enableLiveChatLogging) {
+			browserWindow.liveagent.enableLogging();
+		}
+		browserWindow.liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatDOMButtonID));
+
 	};
 
-	const showLiveChatBtnWhenOnline = (livechatButtonID) => {
-		if (!browserWindow.liveAgentDeployment) {
-			return;
-		}
-		browserWindow.liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatButtonID));
+	const _initChatAsync = () => {
+
+		let callCounter = 0;
+		const maxCallCount = 10;
+		const callFrequencyInMillis = 1000;
+
+		var checkLiveAgentTimer = setInterval(() => {
+
+			callCounter++;
+			if (callCounter > maxCallCount) {
+				clearInterval(checkLiveAgentTimer);
+				return;
+			}
+			if (!browserWindow.liveAgentDeployment) {
+				return;
+			}
+			if (browserWindow.liveAgentDeployment) {
+				_initChat();
+				clearInterval(checkLiveAgentTimer);
+			}
+
+		}, callFrequencyInMillis);
+
+	};
+
+	const _initChatMain = () => {
+
+		_clearLiveAgent();
+
+		_loadScript(liveChatConfig.deplymentJsSrcLink, () => {
+
+			if (browserWindow.liveAgentDeployment) {
+				_initChat();
+			} else {
+				_initChatAsync();
+			}
+
+		});
+
+	};
+
+	const initModule = (browserWindowParam, domDocument, btnDomID) => {
+		browserWindow = browserWindowParam;
+		livechatDOMButtonID = btnDomID;
+	};
+
+	const initSalesforceLiveagent = () => {
+
+		_initChatMain();
 
 	};
 
@@ -41,10 +93,14 @@ export const LiveChatFacade = (() => {
 		browserWindow.liveagent.startChat(liveChatConfig.chatButtonId);
 	};
 
+	const withLogging = () => {
+		enableLiveChatLogging = true;
+	};
+
 	return {
 		initModule: initModule,
-		initSFLiveagent: initSFLiveagent,
-		showLiveChatBtnWhenOnline: showLiveChatBtnWhenOnline,
+		withLogging: withLogging,
+		initSalesforceLiveagent: initSalesforceLiveagent,
 		startChat: startChat
 	}
 })();

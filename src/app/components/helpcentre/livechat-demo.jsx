@@ -5,12 +5,12 @@ import {liveChatConfig} from '../../scripts/livechatConfig';
 class LivechatDemo extends Component {
 
 	componentWillMount() {
-		LiveChatFacade.initModule(window, document);
+		LiveChatFacade.initModule(window, document, "livechat-button-online")
+		LiveChatFacade.withLogging();
 	}
 
 	componentDidMount() {
-		LiveChatFacade.initSFLiveagent();
-		LiveChatFacade.showLiveChatBtnWhenOnline("livechat-button-online");
+		LiveChatFacade.initSalesforceLiveagent();
 	}
 
 	render() {
