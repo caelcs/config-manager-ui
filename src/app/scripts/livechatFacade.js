@@ -32,6 +32,17 @@ export const LiveChatFacade = (() => {
 		}
 		browserWindow.liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatDOMButtonID));
 
+		browserWindow.liveagent.addButtonEventHandler(liveChatConfig.chatButtonId, (e) => {
+			if(e === browserWindow.liveagent.BUTTON_EVENT.BUTTON_AVAILABLE){
+				jQuery('.liveagent-online-description').attr('style', 'display: block');
+				jQuery('.liveagent-offline-description').attr('style', 'display: none');
+			}
+			if(e === browserWindow.liveagent.BUTTON_EVENT.BUTTON_UNAVAILABLE){
+				jQuery('.liveagent-online-description').attr('style', 'display: none');
+				jQuery('.liveagent-offline-description').attr('style', 'display: block');
+			}
+		});
+
 	};
 
 	const _initChatAsync = () => {

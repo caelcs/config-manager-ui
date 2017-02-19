@@ -17,34 +17,34 @@ class LivechatDemo extends Component {
 		return (
 			<div>
 				<div className="n-container">
-					<h1>livechat demo</h1>
-					<div>
+					<div className="n-container__item">
+						<h1>livechat demo</h1>
+						<div>
 
-						<div id="live-agent-card" className="sidebar-card sidebar-card-blue">
-							<div className="sidebar-card-header">
-								<i className="ntvicon ntvicon-live-chat-01 ntvicon-blue"></i>
-								Help_LiveAgentComponent_Title
+							<div id="live-agent-card" className="sidebar-card sidebar-card-blue">
+								<div className="n-container__item">
+									<i className="ntvicon ntvicon-live-chat-01 ntvicon-blue"></i>
+									Live Chat
+								</div>
+
+								<div className="n-container__item">
+									<p className="liveagent-online-description" style={{display: 'none'}}>
+										liveAgent Available Description
+									</p>
+									<p className="liveagent-offline-description" style={{display: 'none'}}>
+										liveAgent Unavailable Description
+									</p>
+								</div>
+
+								<div className="n-container__item">
+									<button onClick={() => LiveChatFacade.startChat() } id="livechat-button-online"
+													className="n-button n-button--blue" style={{display: 'none'}}>
+										Chat online
+									</button>
+								</div>
 							</div>
 
-							<div className="sidebar-card-content" id="lifeAgentSideCardOnline" style={{display: 'none'}}>
-								<p id="liveagent-description">
-									liveAgentAvailableDescription
-								</p>
-							</div>
-							<div className="sidebar-card-content" id="lifeAgentSideCardOffline" style={{display: 'none'}}>
-								<p id="liveagent-description">
-									!liveAgentUnavailableDescription
-								</p>
-							</div>
-
-							<div className="sidebar-card-footer">
-								<button onClick={() => LiveChatFacade.startChat() } id="livechat-button-online"
-												className="btn btn-block btn-blue" style={{display: 'none'}}>
-									Help_LiveAgentComponent_ChatButtomLabel
-								</button>
-							</div>
 						</div>
-
 					</div>
 				</div>
 				<hr />
