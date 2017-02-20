@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+// TO refactoring, return status not full style attribute
+
 const defaultState = {
 				online: {
 					display: 'none'
@@ -10,8 +12,6 @@ const defaultState = {
 			};
 
 const liveagentComponentsStyleAttribute = (state = defaultState, action) => {
-
-	console.log('liveagentComponentsStyleAttribute()');
 
 	switch(action.type) {
 		case 'BUTTON_AVAILABLE':
@@ -45,4 +45,3 @@ const livechat = () => {
 }
 
 export default livechat();
-

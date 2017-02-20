@@ -1,94 +1,11 @@
 import {liveChatConfig} from './livechatConfig';
-import jQuery from 'jquery';
+import {livechatInitHandler} from './livechatInitHandler';
 
-export const LiveChatFacade = (() => {
+export const liveChatFacade = (() => {
 
-	const defaultButtonId = 'livechat-master-btn';
-
-	var browserWindow = {};
-	var livechatDOMBtnId = '';
-	var enableLiveChatLogging = false;
-
-	const _loadScript = (url, callback) => {
-		jQuery.ajax({
-			url: url,
-			dataType: 'script',
-			success: callback,
-			async: true
-		});
-	};
-
-	const _clearLiveAgent = () => {
-		if (browserWindow.liveagent || browserWindow.liveAgentDeployment) {
-			delete browserWindow.liveagent;
-			delete browserWindow.liveAgentDeployment;
-		}
-	};
-
-	const _initChat = () => {
-
-		browserWindow.liveagent.init(liveChatConfig.livechatEndpoint, liveChatConfig.deploymentId, liveChatConfig.orgId);
-		if(enableLiveChatLogging) {
-			browserWindow.liveagent.enableLogging();
-		}
-		browserWindow.liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatDOMBtnId));
-	};
-
-	const _initChatAsync = () => {
-
-		let callCounter = 0;
-		const maxCallCount = 10;
-		const callFrequencyInMillis = 1000;
-
-		var checkLiveAgentTimer = setInterval(() => {
-
-			callCounter++;
-			if (callCounter > maxCallCount) {
-				clearInterval(checkLiveAgentTimer);
-				return;
-			}
-			if (!browserWindow.liveAgentDeployment) {
-				return;
-			}
-			if (browserWindow.liveAgentDeployment) {
-				_initChat();
-				clearInterval(checkLiveAgentTimer);
-			}
-
-		}, callFrequencyInMillis);
-
-	};
-
-	const _initChatMain = (handleLivechatButtonCallback) => {
-
-		console.log('_initChatMain');
-
-		_clearLiveAgent();
-
-		_loadScript(liveChatConfig.deplymentJsSrcLink, () => {
-
-			if (browserWindow.liveAgentDeployment) {
-				_initChat();
-			} else {
-				_initChatAsync();
-			}
-
-			handleLivechatButtonCallback();
-
-		});
-
-	};
-
-	const initModule = (browserWindowParam, domDocument, btnOnline) => {
-		browserWindow = browserWindowParam;
-		livechatDOMBtnId = btnOnline || defaultButtonId;
-	};
-
-	const initSalesforceLiveagent = (handleLivechatButtonCallback) => {
-
-		_initChatMain(handleLivechatButtonCallback);
-
-	};
+	const defaultButtonId = () => {
+		return 'livechat-master-btn';
+	 }
 
 	const startChat = (windowObj) => {
 		if (!windowObj.liveAgentDeployment) {
@@ -98,16 +15,31 @@ export const LiveChatFacade = (() => {
 	};
 
 	const withLogging = () => {
-		enableLiveChatLogging = true;
+		livechatInitHandler.withLogging();
+	};
+
+	const livechatButtonHandler = (browserWindow, chatBtnActions) => {
+
+		let liveagentInstance = browserWindow.liveagent;
+
+		liveagentInstance.addButtonEventHandler(liveChatConfig.chatButtonId, (e) => {
+			if(e === liveagentInstance.BUTTON_EVENT.BUTTON_AVAILABLE){
+				chatBtnActions['online'](liveChatFacade.defaultButtonId());
+			}
+			if(e === liveagentInstance.BUTTON_EVENT.BUTTON_UNAVAILABLE){
+				chatBtnActions['offline'](liveChatFacade.defaultButtonId());
+			}
+		});
+	};
+
+	const init = (windowObj, chatBtnActions) => {
+		livechatInitHandler.initSalesforceLiveagent(windowObj, () => livechatButtonHandler(windowObj, chatBtnActions));
 	};
 
 	return {
-		initModule: initModule,
+		init: init,
 		withLogging: withLogging,
-		initSalesforceLiveagent: initSalesforceLiveagent,
-		defaultButtonId: () => {
-			return defaultButtonId;
-		},
+		defaultButtonId: defaultButtonId,
 		startChat: startChat
 	}
 })();

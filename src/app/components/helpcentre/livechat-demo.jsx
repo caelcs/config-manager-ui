@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {LiveChatFacade} from '../../scripts/livechatFacade';
+import {liveChatFacade} from '../../scripts/livechatFacade';
 import {connect} from 'react-redux';
 import * as actions from '../../actions/index';
 import LivechatMasterButton from './livechat/livechatMasterButton';
@@ -40,7 +40,7 @@ class LivechatDemo extends Component {
 								</div>
 
 								<div className="n-container__item" style={this.props.livagentStyleAttr.online}>
-									<button onClick={() => LiveChatFacade.startChat(window) } className="n-button n-button--blue">
+									<button onClick={() => liveChatFacade.startChat(window) } className="n-button n-button--blue">
 										Chat online
 									</button>
 								</div>
