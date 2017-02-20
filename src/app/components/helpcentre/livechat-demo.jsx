@@ -5,7 +5,7 @@ import {liveChatConfig} from '../../scripts/livechatConfig';
 class LivechatDemo extends Component {
 
 	componentWillMount() {
-		LiveChatFacade.initModule(window, document, "livechat-button-online")
+		LiveChatFacade.initModule(window, document, "livechat-button-online-5730Y0000008Ph4")
 		LiveChatFacade.withLogging();
 	}
 
@@ -37,10 +37,11 @@ class LivechatDemo extends Component {
 								</div>
 
 								<div className="n-container__item">
-									<button onClick={() => LiveChatFacade.startChat() } id="livechat-button-online"
-													className="n-button n-button--blue" style={{display: 'none'}}>
+									<a href="javascript://Chat" onClick={() => LiveChatFacade.startChat() }
+										 id="livechat-button-online-5730Y0000008Ph4"
+										 className="n-button n-button--blue" style={{display: 'none'}}>
 										Chat online
-									</button>
+									</a>
 								</div>
 							</div>
 
