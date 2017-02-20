@@ -18,23 +18,22 @@ class LivechatDemo extends Component {
 			<div>
 				<div className="n-container">
 					<div className="n-container__item">
-
 					<LivechatMasterButton />
 
 						<h1>Live Chat Demo</h1>
-						<div>
 
-							<div id="live-agent-card" className="sidebar-card sidebar-card-blue">
+						<div>
+							<div className="sidebar-card sidebar-card-blue">
 								<div className="n-container__item">
 									<i className="ntvicon ntvicon-live-chat-01 ntvicon-blue"></i>
 									Live Chat
 								</div>
 
 								<div className="n-container__item">
-									<p className="liveagent-online-description" style={{display: 'none'}}>
+									<p style={this.props.livagentStyleAttr.online} >
 										Available every day 8am–midnight for TV issues, and 8am–11pm for broadband or calls issues.
 									</p>
-									<p className="liveagent-offline-description" style={{display: 'none'}}>
+									<p style={this.props.livagentStyleAttr.offline} >
 										<b>Live Chat is unavailable at the moment, or all our advisors are busy.</b>
 										<br />
 										You can chat with an advisor every day 8am–midnight for TV issues, and 8am–11pm for broadband or
@@ -42,18 +41,13 @@ class LivechatDemo extends Component {
 									</p>
 								</div>
 
-								<div className="n-container__item" id="livechat-button-online-5730Y0000008Ph4"
-										 style={{display: 'none'}}>
-									<a href="javascript://Chat" onClick={() => LiveChatFacade.startChat() }
-										 className="n-button n-button--blue">
+								<div className="n-container__item" style={this.props.livagentStyleAttr.online}>
+									<a href="javascript://Chat" onClick={() => LiveChatFacade.startChat() } className="n-button n-button--blue">
 										Chat online
 									</a>
 								</div>
-								<div className="n-container__item" id="livechat-button-offline-5730Y0000008Ph4"
-										 style={{display: 'none'}}>
-									<span className="n-button n-button--blue" disabled>
-										Chat offline
-									</span>
+								<div className="n-container__item" style={this.props.livagentStyleAttr.offline}>
+									<span className="n-button n-button--blue" disabled>Chat offline</span>
 								</div>
 							</div>
 
@@ -69,7 +63,7 @@ class LivechatDemo extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		livagentStyleAttr: liveagentComponentsStyleAttribute
+		livagentStyleAttr: state.livechat.liveagentComponentsStyleAttribute
 	}
 };
 
