@@ -44,9 +44,6 @@ export const LiveChatFacade = (() => {
 				jQuery('.liveagent-offline-description').attr('style', 'display: block');
 			}
 		});
-
-		browserWindow.liveagent.disconnect();
-
 	};
 
 	const _initChatAsync = () => {
