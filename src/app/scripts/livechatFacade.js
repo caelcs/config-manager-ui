@@ -4,7 +4,8 @@ import jQuery from 'jquery';
 export const LiveChatFacade = (() => {
 
 	var browserWindow = {};
-	var livechatDOMButtonID = '';
+	var livechatDOMButtonIDOnline = '';
+	var livechatDOMButtonIDOffline = '';
 	var enableLiveChatLogging = false;
 
 	const _loadScript = (url, callback) => {
@@ -30,7 +31,8 @@ export const LiveChatFacade = (() => {
 		if(enableLiveChatLogging) {
 			browserWindow.liveagent.enableLogging();
 		}
-		browserWindow.liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatDOMButtonID));
+		browserWindow.liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatDOMButtonIDOnline));
+		browserWindow.liveagent.showWhenOffline(liveChatConfig.chatButtonId, document.getElementById(livechatDOMButtonIDOffline));
 
 		browserWindow.liveagent.addButtonEventHandler(liveChatConfig.chatButtonId, (e) => {
 			if(e === browserWindow.liveagent.BUTTON_EVENT.BUTTON_AVAILABLE){
@@ -42,6 +44,8 @@ export const LiveChatFacade = (() => {
 				jQuery('.liveagent-offline-description').attr('style', 'display: block');
 			}
 		});
+
+		browserWindow.liveagent.disconnect();
 
 	};
 
@@ -86,9 +90,10 @@ export const LiveChatFacade = (() => {
 
 	};
 
-	const initModule = (browserWindowParam, domDocument, btnDomID) => {
+	const initModule = (browserWindowParam, domDocument, btnOnline, btnOffline) => {
 		browserWindow = browserWindowParam;
-		livechatDOMButtonID = btnDomID;
+		livechatDOMButtonIDOnline = btnOnline;
+		livechatDOMButtonIDOffline = btnOffline;
 	};
 
 	const initSalesforceLiveagent = () => {
