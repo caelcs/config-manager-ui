@@ -7,7 +7,6 @@ import {liveagentComponentsStyleAttribute} from '../../reducers/livechat';
 
 class LivechatDemo extends Component {
 
-
 	componentDidMount() {
 		const {setCurrentPageTitle} = this.props;
 		setCurrentPageTitle('Live Chat Demo');
@@ -21,7 +20,6 @@ class LivechatDemo extends Component {
 					<LivechatMasterButton />
 
 						<h1>Live Chat Demo</h1>
-
 						<div>
 							<div className="sidebar-card sidebar-card-blue">
 								<div className="n-container__item">
@@ -42,9 +40,9 @@ class LivechatDemo extends Component {
 								</div>
 
 								<div className="n-container__item" style={this.props.livagentStyleAttr.online}>
-									<a href="javascript://Chat" onClick={() => LiveChatFacade.startChat() } className="n-button n-button--blue">
+									<button onClick={() => LiveChatFacade.startChat(window) } className="n-button n-button--blue">
 										Chat online
-									</a>
+									</button>
 								</div>
 								<div className="n-container__item" style={this.props.livagentStyleAttr.offline}>
 									<span className="n-button n-button--blue" disabled>Chat offline</span>
@@ -58,7 +56,6 @@ class LivechatDemo extends Component {
 			</div>
 		);
 	}
-
 }
 
 const mapStateToProps = (state) => {

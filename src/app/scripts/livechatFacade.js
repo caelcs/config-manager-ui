@@ -3,8 +3,10 @@ import jQuery from 'jquery';
 
 export const LiveChatFacade = (() => {
 
+	const defaultButtonId = 'livechat-master-btn';
+
 	var browserWindow = {};
-	var livechatDOMButtonIDOnline = '';
+	var livechatDOMBtnId = '';
 	var enableLiveChatLogging = false;
 
 	const _loadScript = (url, callback) => {
@@ -15,7 +17,6 @@ export const LiveChatFacade = (() => {
 			async: true
 		});
 	};
-
 
 	const _clearLiveAgent = () => {
 		if (browserWindow.liveagent || browserWindow.liveAgentDeployment) {
@@ -30,7 +31,7 @@ export const LiveChatFacade = (() => {
 		if(enableLiveChatLogging) {
 			browserWindow.liveagent.enableLogging();
 		}
-		browserWindow.liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatDOMButtonIDOnline));
+		browserWindow.liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatDOMBtnId));
 	};
 
 	const _initChatAsync = () => {
@@ -80,7 +81,7 @@ export const LiveChatFacade = (() => {
 
 	const initModule = (browserWindowParam, domDocument, btnOnline) => {
 		browserWindow = browserWindowParam;
-		livechatDOMButtonIDOnline = btnOnline;
+		livechatDOMBtnId = btnOnline || defaultButtonId;
 	};
 
 	const initSalesforceLiveagent = (handleLivechatButtonCallback) => {
@@ -89,11 +90,11 @@ export const LiveChatFacade = (() => {
 
 	};
 
-	const startChat = () => {
-		if (!browserWindow.liveAgentDeployment) {
+	const startChat = (windowObj) => {
+		if (!windowObj.liveAgentDeployment) {
 			return;
 		}
-		browserWindow.liveagent.startChat(liveChatConfig.chatButtonId);
+		windowObj.liveagent.startChat(liveChatConfig.chatButtonId);
 	};
 
 	const withLogging = () => {
@@ -104,7 +105,9 @@ export const LiveChatFacade = (() => {
 		initModule: initModule,
 		withLogging: withLogging,
 		initSalesforceLiveagent: initSalesforceLiveagent,
+		defaultButtonId: () => {
+			return defaultButtonId;
+		},
 		startChat: startChat
 	}
 })();
-

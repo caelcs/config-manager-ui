@@ -8,8 +8,10 @@ import {liveagentComponentsStyleAttribute} from '../../../reducers/livechat';
 
 class LivechatMasterButton extends React.Component {
 
+	livachatBtnId = LiveChatFacade.defaultButtonId();
+
 	componentWillMount() {
-  		LiveChatFacade.initModule(window, document, "livechat-master-btn");
+  		LiveChatFacade.initModule(window, document);
   		LiveChatFacade.withLogging();
   	}
 
@@ -17,21 +19,22 @@ class LivechatMasterButton extends React.Component {
 
   		const {liveChatButtonAvialable, liveChatButtonUnavialable} = this.props;
 
-  		const handleLivechatButtonState = (livechatDOMButtonIDOnline) => {
-			let liveagentInstance = window.liveagent;
+  		const handleLivechatButtonState = (browserWindow) => {
+
+			let liveagentInstance = browserWindow.liveagent;
 
 			liveagentInstance.addButtonEventHandler(liveChatConfig.chatButtonId, (e) => {
 				if(e === liveagentInstance.BUTTON_EVENT.BUTTON_AVAILABLE){
-					liveChatButtonAvialable(livechatDOMButtonIDOnline);
+					liveChatButtonAvialable(LiveChatFacade.defaultButtonId());
 				}
 				if(e === liveagentInstance.BUTTON_EVENT.BUTTON_UNAVAILABLE){
-					liveChatButtonUnavialable(livechatDOMButtonIDOnline);
+					liveChatButtonUnavialable(LiveChatFacade.defaultButtonId());
 				}
 			});
 
 		};
 
-  		LiveChatFacade.initSalesforceLiveagent(() => handleLivechatButtonState('livechat-master-btn'));
+  		LiveChatFacade.initSalesforceLiveagent(() => handleLivechatButtonState(window));
 
   	}
 
@@ -39,7 +42,7 @@ class LivechatMasterButton extends React.Component {
 		return (
 			<div style={{ display: 'none' }} >
 				<div>
-					<button id="livechat-master-btn">Chat online</button>
+					<button id={this.livachatBtnId} >Chat online</button>
 				</div>
 			</div>
 		);
