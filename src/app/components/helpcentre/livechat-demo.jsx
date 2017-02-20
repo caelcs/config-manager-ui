@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {LiveChatFacade} from '../../scripts/livechatFacade';
 import {liveChatConfig} from '../../scripts/livechatConfig';
+import {connect} from 'react-redux';
+import * as actions from '../../actions/index';
 
 class LivechatDemo extends Component {
 
@@ -10,6 +12,8 @@ class LivechatDemo extends Component {
 	}
 
 	componentDidMount() {
+		const {setCurrentPageTitle} = this.props;
+		setCurrentPageTitle('Live Chat Demo');
 		LiveChatFacade.initSalesforceLiveagent();
 	}
 
@@ -55,4 +59,4 @@ class LivechatDemo extends Component {
 
 }
 
-export default LivechatDemo;
+export default connect(null, actions)(LivechatDemo);
