@@ -3,6 +3,7 @@ import {LiveChatFacade} from '../../scripts/livechatFacade';
 import {connect} from 'react-redux';
 import * as actions from '../../actions/index';
 import LivechatMasterButton from './livechat/livechatMasterButton.jsx';
+import {liveagentComponentsStyleAttribute} from '../../reducers/livechat';
 
 class LivechatDemo extends Component {
 
@@ -66,4 +67,10 @@ class LivechatDemo extends Component {
 
 }
 
-export default connect(null, actions)(LivechatDemo);
+const mapStateToProps = (state) => {
+	return {
+		livagentStyleAttr: liveagentComponentsStyleAttribute
+	}
+};
+
+export default connect(mapStateToProps, actions)(LivechatDemo);
