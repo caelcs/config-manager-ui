@@ -1,20 +1,15 @@
 import React, {Component} from 'react';
 import {LiveChatFacade} from '../../scripts/livechatFacade';
-import {liveChatConfig} from '../../scripts/livechatConfig';
 import {connect} from 'react-redux';
 import * as actions from '../../actions/index';
+import LivechatMasterButton from './livechat/livechatMasterButton.jsx';
 
 class LivechatDemo extends Component {
 
-	componentWillMount() {
-		LiveChatFacade.initModule(window, document, "livechat-button-online-5730Y0000008Ph4", "livechat-button-offline-5730Y0000008Ph4")
-		LiveChatFacade.withLogging();
-	}
 
 	componentDidMount() {
 		const {setCurrentPageTitle} = this.props;
 		setCurrentPageTitle('Live Chat Demo');
-		LiveChatFacade.initSalesforceLiveagent();
 	}
 
 	render() {
@@ -22,6 +17,9 @@ class LivechatDemo extends Component {
 			<div>
 				<div className="n-container">
 					<div className="n-container__item">
+
+					<LivechatMasterButton />
+
 						<h1>Live Chat Demo</h1>
 						<div>
 
@@ -33,22 +31,25 @@ class LivechatDemo extends Component {
 
 								<div className="n-container__item">
 									<p className="liveagent-online-description" style={{display: 'none'}}>
-										Available every day 8am–midnight for TV issues, and 8am–11pm for broadband or calls issues. 
+										Available every day 8am–midnight for TV issues, and 8am–11pm for broadband or calls issues.
 									</p>
 									<p className="liveagent-offline-description" style={{display: 'none'}}>
 										<b>Live Chat is unavailable at the moment, or all our advisors are busy.</b>
 										<br />
-										You can chat with an advisor every day 8am–midnight for TV issues, and 8am–11pm for broadband or calls issues. 
+										You can chat with an advisor every day 8am–midnight for TV issues, and 8am–11pm for broadband or
+										calls issues.
 									</p>
 								</div>
 
-								<div className="n-container__item" id="livechat-button-online-5730Y0000008Ph4" style={{display: 'none'}}>
+								<div className="n-container__item" id="livechat-button-online-5730Y0000008Ph4"
+										 style={{display: 'none'}}>
 									<a href="javascript://Chat" onClick={() => LiveChatFacade.startChat() }
 										 className="n-button n-button--blue">
 										Chat online
 									</a>
 								</div>
-								<div className="n-container__item" id="livechat-button-offline-5730Y0000008Ph4" style={{display: 'none'}}>
+								<div className="n-container__item" id="livechat-button-offline-5730Y0000008Ph4"
+										 style={{display: 'none'}}>
 									<span className="n-button n-button--blue" disabled>
 										Chat offline
 									</span>

@@ -1,12 +1,10 @@
 import {liveChatConfig} from './livechatConfig';
-import {handleLivechatButtonState} from './livechatOfflineOnlineHandler';
 import jQuery from 'jquery';
 
 export const LiveChatFacade = (() => {
 
 	var browserWindow = {};
 	var livechatDOMButtonIDOnline = '';
-	var livechatDOMButtonIDOffline = '';
 	var enableLiveChatLogging = false;
 
 	const _loadScript = (url, callback) => {
@@ -32,22 +30,7 @@ export const LiveChatFacade = (() => {
 		if(enableLiveChatLogging) {
 			browserWindow.liveagent.enableLogging();
 		}
-
-		handleLivechatButtonState(browserWindow.liveagent, livechatDOMButtonIDOnline);
-
-		// browserWindow.liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatDOMButtonIDOnline));
-		browserWindow.liveagent.showWhenOffline(liveChatConfig.chatButtonId, document.getElementById(livechatDOMButtonIDOffline));
-
-		browserWindow.liveagent.addButtonEventHandler(liveChatConfig.chatButtonId, (e) => {
-			if(e === browserWindow.liveagent.BUTTON_EVENT.BUTTON_AVAILABLE){
-				jQuery('.liveagent-online-description').attr('style', 'display: block');
-				jQuery('.liveagent-offline-description').attr('style', 'display: none');
-			}
-			if(e === browserWindow.liveagent.BUTTON_EVENT.BUTTON_UNAVAILABLE){
-				jQuery('.liveagent-online-description').attr('style', 'display: none');
-				jQuery('.liveagent-offline-description').attr('style', 'display: block');
-			}
-		});
+		browserWindow.liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatDOMButtonIDOnline));
 	};
 
 	const _initChatAsync = () => {
@@ -75,7 +58,9 @@ export const LiveChatFacade = (() => {
 
 	};
 
-	const _initChatMain = () => {
+	const _initChatMain = (handleLivechatButtonCallback) => {
+
+		console.log('_initChatMain');
 
 		_clearLiveAgent();
 
@@ -87,19 +72,20 @@ export const LiveChatFacade = (() => {
 				_initChatAsync();
 			}
 
+			handleLivechatButtonCallback();
+
 		});
 
 	};
 
-	const initModule = (browserWindowParam, domDocument, btnOnline, btnOffline) => {
+	const initModule = (browserWindowParam, domDocument, btnOnline) => {
 		browserWindow = browserWindowParam;
 		livechatDOMButtonIDOnline = btnOnline;
-		livechatDOMButtonIDOffline = btnOffline;
 	};
 
-	const initSalesforceLiveagent = () => {
+	const initSalesforceLiveagent = (handleLivechatButtonCallback) => {
 
-		_initChatMain();
+		_initChatMain(handleLivechatButtonCallback);
 
 	};
 
