@@ -1,4 +1,5 @@
 import {liveChatConfig} from './livechatConfig';
+import {handleLivechatButtonState} from './livechatOfflineOnlineHandler';
 import jQuery from 'jquery';
 
 export const LiveChatFacade = (() => {
@@ -31,7 +32,10 @@ export const LiveChatFacade = (() => {
 		if(enableLiveChatLogging) {
 			browserWindow.liveagent.enableLogging();
 		}
-		browserWindow.liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatDOMButtonIDOnline));
+
+		handleLivechatButtonState(browserWindow.liveagent, livechatDOMButtonIDOnline);
+
+		// browserWindow.liveagent.showWhenOnline(liveChatConfig.chatButtonId, document.getElementById(livechatDOMButtonIDOnline));
 		browserWindow.liveagent.showWhenOffline(liveChatConfig.chatButtonId, document.getElementById(livechatDOMButtonIDOffline));
 
 		browserWindow.liveagent.addButtonEventHandler(liveChatConfig.chatButtonId, (e) => {

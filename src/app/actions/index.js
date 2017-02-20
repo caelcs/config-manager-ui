@@ -1,4 +1,4 @@
-import { isFetchingArticles } from '../reducers/articles';
+import {isFetchingArticles} from '../reducers/articles';
 import axios from 'axios';
 
 const apiFail = (type, error) => {
@@ -16,6 +16,21 @@ const pageTitle = (title) => ({
 	type: 'SET_CURRENT_PAGE_TITLE',
 	title
 });
+
+export const liveChatButtonAvialable = (buttonId) => (dispatch) => {
+	dispatch({
+		type: 'BUTTON_AVAILABLE',
+		buttonId
+	})
+};
+
+
+export const liveChatButtonUnavialable = (buttonId) => (dispatch) => {
+	dispatch({
+		type: 'BUTTON_UNAVAILABLE',
+		buttonId
+	});
+};
 
 export const setCurrentPageTitle = (title) => (dispatch) => {
 	dispatch(pageTitle(title))
@@ -66,10 +81,10 @@ export const fetchAllArticlesKeyesAndTitlesAction = (filter) => (dispatch, getSt
 	dispatch(requestAllArticlesKeyesAndTitles());
 	return axios.get(`https://martinhelp-developer-edition.eu11.force.com/services/apexrest/api/articles/all/keyes-and-titles`)
 		.then(response => {
-		dispatch(receiveAllArticlesKeyesAndTitles(response.data));
-	}).catch(error => {
-		dispatch(apiFail('ALL_ARTICLE_FAILURE', error));
-	});
+			dispatch(receiveAllArticlesKeyesAndTitles(response.data));
+		}).catch(error => {
+			dispatch(apiFail('ALL_ARTICLE_FAILURE', error));
+		});
 };
 
 
