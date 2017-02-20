@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../../actions/index';
 import {liveChatConfig} from '../../../scripts/livechatConfig';
-import {LiveChatFacade} from '../../../scripts/LiveChatFacade';
+import {LiveChatFacade} from '../../../scripts/liveChatFacade';
 import {liveagentComponentsStyleAttribute} from '../../../reducers/livechat';
 
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {LiveChatFacade} from '../../scripts/livechatFacade';
 import {connect} from 'react-redux';
 import * as actions from '../../actions/index';
-import LivechatMasterButton from './livechat/livechatMasterButton.jsx';
+import LivechatMasterButton from './livechat/livechatMasterButton';
 import {liveagentComponentsStyleAttribute} from '../../reducers/livechat';
 
 class LivechatDemo extends Component {
