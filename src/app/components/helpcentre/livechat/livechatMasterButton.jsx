@@ -36,9 +36,9 @@ class LivechatMasterButton extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<div id="livechat-master-btn" >
-					<button>Chat online</button>
+			<div style={{ display: 'none' }} >
+				<div>
+					<button id="livechat-master-btn">Chat online</button>
 				</div>
 			</div>
 		);
