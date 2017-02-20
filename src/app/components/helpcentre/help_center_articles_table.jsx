@@ -5,6 +5,7 @@ import {getAllArticlesKeyesAndTitles} from '../../reducers/articles';
 import {withRouter, Link} from 'react-router';
 
 const mapStateToProps = (state) => {
+	console.log('mapStateToProps ArticlesTable');
 	return {
 		articles: getAllArticlesKeyesAndTitles(state)
 	};

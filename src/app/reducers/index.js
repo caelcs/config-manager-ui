@@ -2,13 +2,15 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import apiConfig from './api_config';
 import pages from './pages';
 import articles from './articles';
+import livechat from './livechat';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
 const configStoreData = combineReducers({
 	apiConfig,
 	pages,
-	articles
+	articles,
+	livechat
 });
 
 const configureStore = () => {

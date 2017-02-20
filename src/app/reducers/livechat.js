@@ -1,6 +1,15 @@
 import { combineReducers } from 'redux';
 
-const liveagentComponentsStyleAttribute = (state = {hidden: true}, action) => {
+const defaultState = {
+				online: {
+					display: 'none'
+				},
+				offline: {
+					display: 'block'
+				}
+			};
+
+const liveagentComponentsStyleAttribute = (state = defaultState, action) => {
 
 	console.log('liveagentComponentsStyleAttribute()');
 

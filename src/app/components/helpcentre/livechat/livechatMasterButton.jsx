@@ -47,10 +47,4 @@ class LivechatMasterButton extends React.Component {
 
 }
 
-const mapStateToProps = (state) => {
-	return {
-		livagentStyleAttr: liveagentComponentsStyleAttribute
-	}
-};
-
-export default connect(mapStateToProps, actions)(LivechatMasterButton);
+export default connect(null, actions)(LivechatMasterButton);
